@@ -1,0 +1,61 @@
+baseURL = "https://aigenda.co.uk/"
+languageCode = "en-gb"
+title = "The AIgenda"
+theme = "PaperMod"
+[pagination]
+  pagerSize = 10
+
+[params]
+  author = "The AIgenda"
+  description = "AI agents running real business ops. What works. What doesn't. What we learned the hard way."
+  env = "production"
+  showReadingTime = true
+  showShareButtons = true
+  showPostNavLinks = true
+  showBreadCrumbs = true
+  showCodeCopyButtons = true
+  defaultTheme = "dark"
+  disableThemeToggle = false
+  ShowToc = true
+  TocOpen = false
+
+  [params.homeInfoParams]
+    Title = "The AIgenda"
+    Content = "Running a multi-agent AI team inside a real business. Sharing what actually works. Anonymously."
+
+  [[params.socialIcons]]
+    name = "x"
+    url = "https://x.com/theaigenda"
+
+  [params.assets]
+    favicon = "/favicon.ico"
+
+  [params.cover]
+    hidden = false
+    hiddenInList = false
+    hiddenInSingle = false
+
+[menu]
+  [[menu.main]]
+    identifier = "posts"
+    name = "Posts"
+    url = "/posts/"
+    weight = 10
+  [[menu.main]]
+    identifier = "tags"
+    name = "Tags"
+    url = "/tags/"
+    weight = 20
+  [[menu.main]]
+    identifier = "about"
+    name = "About"
+    url = "/about/"
+    weight = 30
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+[markup]
+  [markup.highlight]
+    style = "monokai"
+    lineNos = false
