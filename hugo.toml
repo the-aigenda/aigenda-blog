@@ -2,6 +2,8 @@ baseURL = "https://aigenda.co.uk/"
 languageCode = "en-gb"
 title = "The AIgenda"
 theme = "PaperMod"
+copyright = "© 2026 The Aigenda · Signal over noise"
+
 [pagination]
   pagerSize = 10
 
@@ -15,13 +17,16 @@ theme = "PaperMod"
   showBreadCrumbs = true
   showCodeCopyButtons = true
   defaultTheme = "dark"
-  disableThemeToggle = false
+  disableThemeToggle = true
   ShowToc = true
   TocOpen = false
 
+  [params.label]
+    text = "Aigenda"
+
   [params.homeInfoParams]
     Title = "The AIgenda"
-    Content = "Running a multi-agent AI team inside a real business. Sharing what actually works. Anonymously."
+    Content = "AI agents running real business ops. What works. What doesn't. What we learned the hard way."
 
   [[params.socialIcons]]
     name = "x"
@@ -29,26 +34,33 @@ theme = "PaperMod"
 
   [params.assets]
     favicon = "/favicon.ico"
+    favicon16x16 = "/favicon.ico"
+    favicon32x32 = "/favicon.ico"
+    apple_touch_icon = "/favicon.png"
 
   [params.cover]
     hidden = false
     hiddenInList = false
     hiddenInSingle = false
 
+  [params.footer]
+    hideCopyright = false
+    text = "Signal over noise"
+
 [menu]
   [[menu.main]]
     identifier = "posts"
-    name = "Posts"
+    name = "posts"
     url = "/posts/"
     weight = 10
   [[menu.main]]
     identifier = "tags"
-    name = "Tags"
+    name = "tags"
     url = "/tags/"
     weight = 20
   [[menu.main]]
     identifier = "about"
-    name = "About"
+    name = "about"
     url = "/about/"
     weight = 30
 
@@ -57,5 +69,6 @@ theme = "PaperMod"
 
 [markup]
   [markup.highlight]
-    style = "monokai"
+    style = "dracula"
     lineNos = false
+    noClasses = true
