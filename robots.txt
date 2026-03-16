@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://aigenda.co.uk/sitemap.xml
