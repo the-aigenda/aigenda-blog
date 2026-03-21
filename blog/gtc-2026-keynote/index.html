@@ -12,6 +12,7 @@
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{--bg:#0A0A0B;--text:#F5F5F7;--text2:#A1A1A6;--text3:#6E6E73;--blue1:#3B82F6;--blue2:#60A5FA;--blue3:#93C5FD;--serif:'DM Serif Display',Georgia,serif;--sans:'Inter',system-ui,sans-serif;--max:1200px}
 html{scroll-behavior:smooth}
+html{overflow-x:hidden;max-width:100vw;-webkit-overflow-scrolling:touch}
 body{background:var(--bg);color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden;position:relative}
 body::before{content:'';position:fixed;inset:0;z-index:-2;background:
   radial-gradient(ellipse 80% 60% at 20% 10%, rgba(15,23,42,.9) 0%, transparent 60%),
