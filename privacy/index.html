@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy | Aigenda – AI Consultancy, Warrington, UK</title>
+<meta name="description" content="Aigenda privacy policy. How we collect, use, and protect your personal data. GDPR compliant.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital,wght@0,400;1,400&family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0A0A0B;--text:#F5F5F7;--text2:#A1A1A6;--text3:#6E6E73;--blue1:#3B82F6;--blue2:#60A5FA;--blue3:#93C5FD;--serif:'DM Serif Display',Georgia,serif;--sans:'Inter',system-ui,sans-serif;--max:1200px}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden;position:relative}
+body::before{content:'';position:fixed;inset:0;z-index:-2;background:
+  radial-gradient(ellipse 80% 60% at 20% 10%, rgba(15,23,42,.9) 0%, transparent 60%),
+  radial-gradient(ellipse 70% 50% at 80% 20%, rgba(17,24,50,.7) 0%, transparent 55%),
+  radial-gradient(ellipse 60% 70% at 10% 60%, rgba(12,20,45,.6) 0%, transparent 50%),
+  radial-gradient(ellipse 90% 50% at 70% 80%, rgba(20,15,40,.5) 0%, transparent 55%),
+  radial-gradient(ellipse 50% 40% at 50% 40%, rgba(10,30,55,.4) 0%, transparent 50%),
+  radial-gradient(ellipse 80% 60% at 90% 50%, rgba(18,12,35,.3) 0%, transparent 50%),
+  linear-gradient(180deg, #080B15 0%, #0A0A0B 40%, #0B0A10 70%, #080B15 100%);pointer-events:none}
+body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.035;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");background-size:256px 256px}
+a{color:inherit;text-decoration:none}
+.gradient-text{background:linear-gradient(135deg,var(--blue1),var(--blue2),var(--blue3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.bokeh-layer{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.bokeh{position:absolute;border-radius:50%;pointer-events:none}
+@keyframes bokehDrift1{0%,100%{transform:translate(0,0)}25%{transform:translate(15px,-10px)}50%{transform:translate(-8px,20px)}75%{transform:translate(20px,8px)}}
+@keyframes bokehDrift2{0%,100%{transform:translate(0,0)}25%{transform:translate(-12px,15px)}50%{transform:translate(18px,-8px)}75%{transform:translate(-5px,-18px)}}
+@keyframes bokehDrift3{0%,100%{transform:translate(0,0)}33%{transform:translate(10px,15px)}66%{transform:translate(-15px,-10px)}}
+.neural-bg{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.neural-bg svg{width:100%;height:100%}
+@keyframes nodePulse1{0%,100%{opacity:.08}50%{opacity:.15}}
+@keyframes nodePulse2{0%,100%{opacity:.10}50%{opacity:.18}}
+@keyframes nodePulse3{0%,100%{opacity:.06}50%{opacity:.13}}
+@keyframes dataFlow1{0%{offset-distance:0%}100%{offset-distance:100%}}
+.neural-node{fill:#60A5FA;opacity:.35}
+.neural-node-dim{fill:rgba(147,197,253,.25)}
+.neural-line{stroke:rgba(96,165,250,.18);stroke-width:.5;fill:none}
+.neural-node.pulse1{animation:nodePulse1 3s ease-in-out infinite}
+.neural-node.pulse2{animation:nodePulse2 4s ease-in-out 1s infinite}
+.neural-node.pulse3{animation:nodePulse3 5s ease-in-out 2s infinite}
+.data-dot{fill:#93C5FD;opacity:.5}
+.particles{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.particle{position:absolute;width:2px;height:2px;background:var(--text);border-radius:50%;opacity:.06}
+@keyframes floatUp{0%{transform:translateY(0) translateX(0);opacity:.06}50%{opacity:.07}100%{transform:translateY(-100vh) translateX(30px);opacity:0}}
+.orb{position:fixed;border-radius:50%;pointer-events:none;z-index:0;filter:blur(80px)}
+.orb-1{width:500px;height:500px;background:radial-gradient(circle,rgba(59,130,246,.05),transparent 70%);top:10%;left:-10%}
+.orb-2{width:400px;height:400px;background:radial-gradient(circle,rgba(96,165,250,.04),transparent 70%);top:50%;right:-8%}
+.orb-3{width:600px;height:600px;background:radial-gradient(circle,rgba(147,197,253,.03),transparent 70%);bottom:10%;left:30%}
+.deco-lines{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.deco-line{position:absolute;background:linear-gradient(90deg,transparent,rgba(245,245,247,.04),transparent);height:0.5px}
+.deco-line-v{position:absolute;background:linear-gradient(180deg,transparent,rgba(245,245,247,.03),transparent);width:0.5px}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:24px 40px;display:flex;justify-content:space-between;align-items:center;transition:background .4s,transform .3s ease}
+nav.scrolled{background:rgba(10,10,11,.85);backdrop-filter:blur(12px)}
+nav svg{width:32px;height:32px;flex-shrink:0}
+.nav-cta{opacity:0;transform:translateY(-8px);transition:opacity .4s,transform .4s;font-size:14px;font-weight:500;letter-spacing:.02em;color:var(--text2)}
+.nav-cta:hover{color:var(--text)}
+nav.scrolled .nav-cta{opacity:1;transform:translateY(0)}
+nav{transform:translateY(0);transition:background .4s,transform .3s ease}
+nav.nav-hidden{transform:translateY(-100%)}
+nav .nav-logo{position:absolute;left:50%;transform:translateX(-50%)}
+
+.nav-toggle{display:block;background:none;border:none;color:var(--text);font-size:24px;cursor:pointer;padding:8px}
+.nav-mobile-overlay{display:none;position:fixed;inset:0;z-index:99;background:rgba(10,10,11,.95);backdrop-filter:blur(16px);flex-direction:column;align-items:center;justify-content:center;gap:32px}
+.nav-mobile-overlay.open{display:flex}
+.nav-mobile-overlay a{font-size:24px;font-weight:500;color:var(--text);letter-spacing:.02em;transition:color .3s}
+.nav-mobile-overlay a:hover{color:var(--blue2)}
+.nav-mobile-overlay .mobile-close{position:absolute;top:24px;right:24px;background:none;border:none;color:var(--text);font-size:28px;cursor:pointer;padding:8px}
+@media(max-width:767px){.nav-cta{display:none}}
+
+.page-hero{padding:160px 40px 80px;text-align:center;position:relative;z-index:2}
+.page-hero h1{font-family:var(--serif);font-size:clamp(32px,5vw,56px);line-height:1.15;margin-bottom:20px;max-width:800px;margin-left:auto;margin-right:auto}
+.page-hero .subtitle{font-size:clamp(16px,2vw,20px);color:var(--text2);max-width:600px;margin:0 auto;line-height:1.6}
+
+section{padding:0 40px;position:relative;z-index:2}
+.section-inner{max-width:var(--max);margin:0 auto}
+.section-spacer{height:80px;position:relative}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+.liquid-glass{background:rgba(255,255,255,.01);backdrop-filter:blur(4px);box-shadow:inset 0 1px 1px rgba(255,255,255,.1);position:relative;overflow:hidden;border-radius:20px;padding:clamp(32px,4vw,48px);transition:transform .4s,box-shadow .4s;margin-bottom:32px}
+.liquid-glass::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1px;background:linear-gradient(135deg,rgba(255,255,255,.15) 0%,rgba(255,255,255,.05) 40%,rgba(255,255,255,.02) 60%,rgba(255,255,255,.08) 100%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+.liquid-glass::after{content:'';position:absolute;inset:0;pointer-events:none;opacity:.015;background-image:radial-gradient(circle at 20% 30%,rgba(59,130,246,.3) 1px,transparent 1px),radial-gradient(circle at 80% 70%,rgba(59,130,246,.3) 1px,transparent 1px);background-size:100% 100%}
+.liquid-glass:hover{transform:translateY(-2px);box-shadow:inset 0 1px 2px rgba(255,255,255,.15),0 4px 24px rgba(59,130,246,.08)}
+
+.policy-card h2{font-family:var(--serif);font-size:clamp(22px,3vw,32px);line-height:1.2;margin-bottom:20px}
+.policy-card h3{font-family:var(--serif);font-size:18px;margin-bottom:12px;color:var(--text)}
+.policy-card p{font-size:16px;color:var(--text2);line-height:1.7;margin-bottom:14px}
+.policy-card ul{list-style:none;padding:0;margin-bottom:16px}
+.policy-card ul li{font-size:15px;color:var(--text2);line-height:1.7;padding:4px 0 4px 20px;position:relative}
+.policy-card ul li::before{content:'→';position:absolute;left:0;color:var(--blue2);font-size:13px}
+.policy-card a{color:var(--blue2);transition:color .3s}
+.policy-card a:hover{color:var(--blue3)}
+.policy-card strong{color:var(--text);font-weight:500}
+.updated{font-size:14px;color:var(--text3);text-align:center;margin-top:16px}
+
+footer{padding:80px 40px 40px;position:relative;z-index:2}
+.footer-inner{display:flex;flex-direction:column;align-items:center;gap:16px}
+.footer-nav,.footer-connect,.footer-legal,.footer-terms{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center}
+.footer-nav a,.footer-connect a,.footer-terms a{font-size:14px;color:var(--text3);letter-spacing:.02em;transition:color .3s}
+.footer-nav a:hover,.footer-connect a:hover,.footer-terms a:hover{color:var(--text2)}
+.footer-dot{color:var(--text3);font-size:14px;opacity:.5}
+.footer-legal{font-size:14px;color:var(--text3);letter-spacing:.02em;margin-top:8px}
+.footer-terms{margin-top:4px}
+.footer-terms a{font-size:12px;opacity:.6}
+.footer-terms a:hover{opacity:1}
+
+@media(max-width:767px){
+  section{padding:0 20px}nav{padding:14px 20px}
+  .page-hero{padding:100px 20px 40px}.page-hero h1{font-size:clamp(28px,7vw,40px)}
+  .liquid-glass{padding:24px 20px;border-radius:16px}
+  .section-spacer{height:40px}
+  .orb{display:none}
+  .neural-bg{opacity:.4}.bokeh-layer{opacity:.35}.bokeh:nth-child(n+5){display:none}
+  .particles,.deco-lines{opacity:.5}
+  footer{padding:60px 24px 32px}.footer-inner{gap:12px}
+}
+@media(prefers-reduced-motion:reduce){.reveal{transition:none;opacity:1;transform:none}.particle{animation:none!important}.neural-node,.data-dot{animation:none!important}.bokeh{animation:none!important}}
+</style>
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<!-- Open Graph -->
+<meta property="og:title" content="Privacy Policy | Aigenda">
+<meta property="og:description" content="Aigenda's privacy policy. How we collect, use, and protect your personal data. GDPR compliant.">
+<meta property="og:url" content="https://aigenda.co.uk/privacy/">
+<meta name="twitter:title" content="Privacy Policy | Aigenda">
+<meta name="twitter:description" content="Aigenda's privacy policy. How we collect, use, and protect your personal data. GDPR compliant.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Aigenda">
+<meta property="og:image" content="https://aigenda.co.uk/og-default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@theaigenda">
+<meta name="twitter:image" content="https://aigenda.co.uk/og-default.png">
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JFMNHGCCVC"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-JFMNHGCCVC");</script>
+</head>
+<body>
+
+<div class="bokeh-layer">
+  <div class="bokeh" style="width:400px;height:400px;top:5%;left:8%;background:radial-gradient(circle,rgba(59,130,246,.15),rgba(59,130,246,.06) 40%,transparent 70%);animation:bokehDrift1 20s ease-in-out infinite"></div>
+  <div class="bokeh" style="width:250px;height:250px;top:15%;right:12%;background:radial-gradient(circle,rgba(96,165,250,.14),rgba(96,165,250,.05) 40%,transparent 70%);animation:bokehDrift2 18s ease-in-out infinite"></div>
+  <div class="bokeh" style="width:500px;height:500px;top:-5%;left:40%;background:radial-gradient(circle,rgba(147,197,253,.04),transparent 70%);animation:bokehDrift3 25s ease-in-out infinite"></div>
+  <div class="bokeh" style="width:320px;height:320px;top:10%;right:30%;background:radial-gradient(circle,rgba(255,255,255,.08),transparent 60%);animation:bokehDrift2 17s ease-in-out 5s infinite"></div>
+  <div class="bokeh" style="width:300px;height:300px;top:40%;left:15%;background:radial-gradient(circle,rgba(96,165,250,.10),transparent 60%);animation:bokehDrift3 22s ease-in-out 3s infinite"></div>
+  <div class="bokeh" style="width:220px;height:220px;top:55%;right:20%;background:radial-gradient(circle,rgba(59,130,246,.08),transparent 60%);animation:bokehDrift1 19s ease-in-out 2s infinite"></div>
+  <div class="bokeh" style="width:380px;height:380px;top:70%;left:50%;background:radial-gradient(circle,rgba(147,197,253,.06),transparent 60%);animation:bokehDrift2 21s ease-in-out 4s infinite"></div>
+</div>
+
+<div class="neural-bg">
+<svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+  <line class="neural-line" x1="120" y1="180" x2="340" y2="290"/>
+  <line class="neural-line" x1="340" y1="290" x2="580" y2="150"/>
+  <line class="neural-line" x1="580" y1="150" x2="820" y2="380"/>
+  <line class="neural-line" x1="820" y1="380" x2="1050" y2="220"/>
+  <line class="neural-line" x1="1050" y1="220" x2="1300" y2="350"/>
+  <line class="neural-line" x1="1300" y1="350" x2="1500" y2="180"/>
+  <line class="neural-line" x1="250" y1="450" x2="480" y2="380"/>
+  <line class="neural-line" x1="820" y1="380" x2="900" y2="550"/>
+  <line class="neural-line" x1="900" y1="550" x2="1100" y2="480"/>
+  <line class="neural-line" x1="400" y1="600" x2="600" y2="720"/>
+  <circle class="neural-node pulse1" cx="120" cy="180" r="4" opacity=".12"/>
+  <circle class="neural-node" cx="340" cy="290" r="3" opacity=".10"/>
+  <circle class="neural-node pulse2" cx="580" cy="150" r="5" opacity=".10"/>
+  <circle class="neural-node pulse2" cx="820" cy="380" r="5" opacity=".12"/>
+  <circle class="neural-node" cx="1050" cy="220" r="4" opacity=".10"/>
+  <circle class="neural-node" cx="1300" cy="350" r="4" opacity=".11"/>
+  <circle class="neural-node pulse1" cx="1500" cy="180" r="5" opacity=".10"/>
+  <circle class="neural-node pulse3" cx="600" cy="720" r="4" opacity=".10"/>
+  <circle class="data-dot" r="2" style="offset-path:path('M120,180 L340,290 L580,150 L820,380');animation:dataFlow1 15s linear infinite"/>
+</svg>
+</div>
+
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+<div class="particles" id="particles"></div>
+<div class="deco-lines">
+  <div class="deco-line" style="width:40%;top:25%;left:5%;transform:rotate(2deg)"></div>
+  <div class="deco-line" style="width:30%;top:55%;right:0;transform:rotate(-1deg)"></div>
+  <div class="deco-line-v" style="height:30%;top:10%;left:20%"></div>
+</div>
+
+<nav id="nav">
+  <button class="nav-toggle" aria-label="Menu">☰</button>
+  <a href="/" class="nav-logo" aria-label="Aigenda home">
+    <svg viewBox="0 0 32 32" width="32" height="32"><path d="M16 2L4 28h8l4-10V2z" fill="#60A5FA"/><path d="M16 2v16l4 10h8L16 2z" fill="#93C5FD"/></svg>
+  </a>
+  <a href="/services/" class="nav-cta">See how it works →</a>
+</nav>
+
+<div class="page-hero reveal">
+  <h1>Privacy <span class="gradient-text">Policy</span></h1>
+  <p class="subtitle">How we collect, use, and protect your data. Written in plain English.</p>
+</div>
+
+<section>
+  <div class="section-inner">
+
+    <div class="liquid-glass policy-card reveal">
+      <h2>What Data We Collect</h2>
+      <p>We keep data collection to the minimum needed to serve you. When you contact us through our website, we collect:</p>
+      <ul>
+        <li>Your name</li>
+        <li>Email address</li>
+        <li>Business type or company name</li>
+        <li>Your message or enquiry details</li>
+      </ul>
+      <p>We may also collect basic analytics data about how you use our website (pages visited, time on site) through cookies — see the Cookies section below.</p>
+    </div>
+
+    <div class="liquid-glass policy-card reveal">
+      <h2>How We Use Your Data</h2>
+      <p>We use the information you provide to:</p>
+      <ul>
+        <li>Respond to your enquiry</li>
+        <li>Provide AI consultancy services you've requested</li>
+        <li>Send relevant follow-up information related to your enquiry</li>
+        <li>Improve our website and services</li>
+      </ul>
+      <p><strong>We never sell your data.</strong> We don't share it with third parties for marketing purposes. Your information is used solely to serve you.</p>
+    </div>
+
+    <div class="liquid-glass policy-card reveal">
+      <h2>Legal Basis for Processing</h2>
+      <p>Under the UK General Data Protection Regulation (UK GDPR), we process your personal data on the following bases:</p>
+      <ul>
+        <li><strong>Consent</strong> — when you submit our contact form, you consent to us using your data to respond to your enquiry</li>
+        <li><strong>Legitimate interest</strong> — to improve our services and website experience</li>
+        <li><strong>Contractual necessity</strong> — when we need your data to deliver services you've engaged us for</li>
+      </ul>
+    </div>
+
+    <div class="liquid-glass policy-card reveal">
+      <h2>Data Retention</h2>
+      <p>We keep your personal data only as long as necessary:</p>
+      <ul>
+        <li><strong>Enquiry data</strong> — retained for up to 24 months after your last contact, then securely deleted</li>
+        <li><strong>Client project data</strong> — retained for the duration of our engagement plus 12 months for follow-up support</li>
+        <li><strong>Analytics data</strong> — aggregated and anonymised; individual session data expires per Google Analytics defaults (14 months)</li>
+      </ul>
+      <p>You can request deletion of your data at any time — see Your Rights below.</p>
+    </div>
+
+    <div class="liquid-glass policy-card reveal">
+      <h2>Third Parties</h2>
+      <p>We use a small number of trusted third-party services:</p>
+      <ul>
+        <li><strong>Google Analytics</strong> — to understand how visitors use our website (anonymised, aggregated data)</li>
+        <li><strong>Email hosting provider</strong> — to process and store email correspondence</li>
+      </ul>
+      <p>We do not sell, trade, or rent your personal data to anyone. We only share data with third parties when strictly necessary to deliver our services, and only with providers who comply with UK GDPR.</p>
+    </div>
+
+    <div class="liquid-glass policy-card reveal">
+      <h2>Cookies</h2>
+      <p>We use minimal cookies on our website:</p>
+      <ul>
+        <li><strong>Analytics cookies</strong> — Google Analytics cookies to understand site traffic and usage patterns. These are anonymised and do not personally identify you.</li>
+        <li><strong>Essential cookies</strong> — basic functional cookies required for the website to operate properly</li>
+      </ul>
+      <p>We do not use advertising cookies, tracking pixels, or retargeting tools. You can disable cookies in your browser settings at any time.</p>
+    </div>
+
+    <div class="liquid-glass policy-card reveal">
+      <h2>Your Rights</h2>
+      <p>Under UK GDPR, you have the right to:</p>
+      <ul>
+        <li><strong>Access</strong> — request a copy of the personal data we hold about you</li>
+        <li><strong>Rectification</strong> — ask us to correct any inaccurate data</li>
+        <li><strong>Erasure</strong> — ask us to delete your personal data ("right to be forgotten")</li>
+        <li><strong>Portability</strong> — receive your data in a structured, commonly used format</li>
+        <li><strong>Objection</strong> — object to our processing of your data</li>
+        <li><strong>Restriction</strong> — request that we limit how we use your data</li>
+        <li><strong>Withdraw consent</strong> — withdraw your consent at any time where processing is based on consent</li>
+      </ul>
+      <p>To exercise any of these rights, contact us at <a href="mailto:hello@aigenda.co.uk">hello@aigenda.co.uk</a>. We'll respond within 30 days.</p>
+    </div>
+
+    <div class="liquid-glass policy-card reveal">
+      <h2>Complaints</h2>
+      <p>If you're not happy with how we've handled your data, you have the right to lodge a complaint with the Information Commissioner's Office (ICO):</p>
+      <ul>
+        <li>Website: <a href="https://ico.org.uk" target="_blank" rel="noopener">ico.org.uk</a></li>
+        <li>Helpline: 0303 123 1113</li>
+      </ul>
+      <p>We'd appreciate the chance to address your concerns first — please reach out to us at <a href="mailto:hello@aigenda.co.uk">hello@aigenda.co.uk</a> before escalating.</p>
+    </div>
+
+    <div class="liquid-glass policy-card reveal">
+      <h2>Contact Us</h2>
+      <p>For any questions about this privacy policy or your personal data:</p>
+      <p><strong>Aigenda</strong><br>Warrington, UK<br><a href="mailto:hello@aigenda.co.uk">hello@aigenda.co.uk</a></p>
+    </div>
+
+    <p class="updated reveal">Last updated: March 2026</p>
+
+  </div>
+</section>
+
+<div class="section-spacer"></div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-nav">
+      <a href="/services/">Services</a>
+      <span class="footer-dot">·</span>
+      <a href="/about/">About</a>
+      <span class="footer-dot">·</span>
+      <a href="/blog/">Blog</a>
+      <span class="footer-dot">·</span>
+      <a href="/contact/">Contact</a>
+    </div>
+    <div class="footer-connect">
+      <a href="mailto:hello@aigenda.co.uk">hello@aigenda.co.uk</a>
+      <span class="footer-dot">·</span>
+      <a href="https://x.com/theaigenda" target="_blank" rel="noopener">@theaigenda</a>
+    </div>
+    <div class="footer-legal">
+      <span class="prism-icon"><svg viewBox="0 0 32 32" width="16" height="16"><path d="M16 2L4 28h8l4-10V2z" fill="#60A5FA"/><path d="M16 2v16l4 10h8L16 2z" fill="#93C5FD"/></svg></span>
+      Aigenda · Warrington, UK · © 2026
+    </div>
+    <div class="footer-terms">
+      <a href="/privacy/">Privacy</a>
+      <span class="footer-dot">·</span>
+      <a href="/terms/">Terms</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){const container=document.getElementById('particles');const count=window.innerWidth<768?12:30;for(let i=0;i<count;i++){const p=document.createElement('div');p.className='particle';p.style.left=Math.random()*100+'%';p.style.top=Math.random()*100+'%';p.style.width=(Math.random()*1.5+0.5)+'px';p.style.height=p.style.width;p.style.animation=`floatUp ${Math.random()*20+15}s linear ${Math.random()*10}s infinite`;container.appendChild(p);}})();
+const io=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}});},{threshold:0.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>80);},{passive:true});
+(function(){
+  var tog=document.querySelector(".nav-toggle");if(!tog)return;
+  var ov=document.createElement("div");ov.className="nav-mobile-overlay";
+  ov.innerHTML='<button class="mobile-close" aria-label="Close menu">✕</button><a href="/">Home</a><a href="/services/">Services</a><a href="/about/">About</a><a href="/blog/">Blog</a><a href="/contact/">Contact</a>';
+  document.body.appendChild(ov);
+  tog.addEventListener("click",function(){ov.classList.add("open")});
+  ov.querySelector(".mobile-close").addEventListener("click",function(){ov.classList.remove("open")});
+  ov.querySelectorAll("a").forEach(function(a){a.addEventListener("click",function(){ov.classList.remove("open")})});
+})();
+(function(){
+  var nav=document.getElementById("nav"),lastY=0,ticking=false;
+  window.addEventListener("scroll",function(){
+    if(!ticking){requestAnimationFrame(function(){var y=window.scrollY;if(y>80&&y>lastY){nav.classList.add("nav-hidden")}else{nav.classList.remove("nav-hidden")}lastY=y;ticking=false;});ticking=true;}
+  },{passive:true});
+})();
+</script>
+</body>
+</html>

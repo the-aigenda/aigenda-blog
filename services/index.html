@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Services for Small Businesses | Aigenda — Warrington, UK</title>
+<meta name="description" content="Practical AI automation, strategy, and multi-agent systems for UK small businesses. Live in days, not months. Free consultation. Based in Warrington.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital,wght@0,400;1,400&family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0A0A0B;--text:#F5F5F7;--text2:#A1A1A6;--text3:#6E6E73;--blue1:#3B82F6;--blue2:#60A5FA;--blue3:#93C5FD;--serif:'DM Serif Display',Georgia,serif;--sans:'Inter',system-ui,sans-serif;--max:1200px}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden;position:relative}
+
+body::before{content:'';position:fixed;inset:0;z-index:-2;background:
+  radial-gradient(ellipse 80% 60% at 20% 10%, rgba(15,23,42,.9) 0%, transparent 60%),
+  radial-gradient(ellipse 70% 50% at 80% 20%, rgba(17,24,50,.7) 0%, transparent 55%),
+  radial-gradient(ellipse 60% 70% at 10% 60%, rgba(12,20,45,.6) 0%, transparent 50%),
+  radial-gradient(ellipse 90% 50% at 70% 80%, rgba(20,15,40,.5) 0%, transparent 55%),
+  radial-gradient(ellipse 50% 40% at 50% 40%, rgba(10,30,55,.4) 0%, transparent 50%),
+  radial-gradient(ellipse 80% 60% at 90% 50%, rgba(18,12,35,.3) 0%, transparent 50%),
+  linear-gradient(180deg, #080B15 0%, #0A0A0B 40%, #0B0A10 70%, #080B15 100%);
+pointer-events:none}
+
+body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.035;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");background-size:256px 256px}
+a{color:inherit;text-decoration:none}
+.gradient-text{background:linear-gradient(135deg,var(--blue1),var(--blue2),var(--blue3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.prism-icon{display:inline-block;vertical-align:middle;flex-shrink:0}
+.prism-icon svg{display:block}
+
+.bokeh-layer{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.bokeh{position:absolute;border-radius:50%;pointer-events:none}
+@keyframes bokehDrift1{0%,100%{transform:translate(0,0)}25%{transform:translate(15px,-10px)}50%{transform:translate(-8px,20px)}75%{transform:translate(20px,8px)}}
+@keyframes bokehDrift2{0%,100%{transform:translate(0,0)}25%{transform:translate(-12px,15px)}50%{transform:translate(18px,-8px)}75%{transform:translate(-5px,-18px)}}
+@keyframes bokehDrift3{0%,100%{transform:translate(0,0)}33%{transform:translate(10px,15px)}66%{transform:translate(-15px,-10px)}}
+
+.neural-bg{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.neural-bg svg{width:100%;height:100%}
+@keyframes nodePulse1{0%,100%{opacity:.08}50%{opacity:.15}}
+@keyframes nodePulse2{0%,100%{opacity:.10}50%{opacity:.18}}
+@keyframes nodePulse3{0%,100%{opacity:.06}50%{opacity:.13}}
+@keyframes dataFlow1{0%{offset-distance:0%}100%{offset-distance:100%}}
+@keyframes dataFlow2{0%{offset-distance:0%}100%{offset-distance:100%}}
+.neural-node{fill:#60A5FA;opacity:.35}
+.neural-node-dim{fill:rgba(147,197,253,.25)}
+.neural-line{stroke:rgba(96,165,250,.18);stroke-width:.5;fill:none}
+.neural-node.pulse1{animation:nodePulse1 3s ease-in-out infinite}
+.neural-node.pulse2{animation:nodePulse2 4s ease-in-out 1s infinite}
+.neural-node.pulse3{animation:nodePulse3 5s ease-in-out 2s infinite}
+.data-dot{fill:#93C5FD;opacity:.5}
+
+.particles{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.particle{position:absolute;width:2px;height:2px;background:var(--text);border-radius:50%;opacity:.06}
+@keyframes floatUp{0%{transform:translateY(0) translateX(0);opacity:.06}50%{opacity:.07}100%{transform:translateY(-100vh) translateX(30px);opacity:0}}
+
+.orb{position:fixed;border-radius:50%;pointer-events:none;z-index:0;filter:blur(80px)}
+.orb-1{width:500px;height:500px;background:radial-gradient(circle,rgba(59,130,246,.05),transparent 70%);top:10%;left:-10%}
+.orb-2{width:400px;height:400px;background:radial-gradient(circle,rgba(96,165,250,.04),transparent 70%);top:50%;right:-8%}
+.orb-3{width:600px;height:600px;background:radial-gradient(circle,rgba(147,197,253,.03),transparent 70%);bottom:10%;left:30%}
+
+.deco-lines{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.deco-line{position:absolute;background:linear-gradient(90deg,transparent,rgba(245,245,247,.04),transparent);height:0.5px}
+.deco-line-v{position:absolute;background:linear-gradient(180deg,transparent,rgba(245,245,247,.03),transparent);width:0.5px}
+
+.page-watermarks{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
+.wm-global{position:absolute;font-family:var(--sans);font-weight:800;color:rgba(245,245,247,.07);line-height:1;user-select:none}
+.prism-watermark{position:absolute;pointer-events:none;z-index:0;opacity:.04}
+.prism-watermark svg{display:block}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:24px 40px;display:flex;justify-content:space-between;align-items:center;transition:background .4s,transform .3s ease}
+nav.scrolled{background:rgba(10,10,11,.85);backdrop-filter:blur(12px)}
+nav svg{width:32px;height:32px;flex-shrink:0}
+.nav-cta{opacity:0;transform:translateY(-8px);transition:opacity .4s,transform .4s;font-size:14px;font-weight:500;letter-spacing:.02em;color:var(--text2)}
+.nav-cta:hover{color:var(--text)}
+nav.scrolled .nav-cta{opacity:1;transform:translateY(0)}
+
+.page-hero{padding:160px 40px 80px;text-align:center;position:relative;z-index:2}
+.page-hero h1{font-family:var(--serif);font-size:clamp(40px,7vw,72px);line-height:1.1;margin-bottom:20px;max-width:800px;margin-left:auto;margin-right:auto}
+.page-hero .subtitle{font-size:clamp(16px,2vw,20px);color:var(--text2);max-width:600px;margin:0 auto;line-height:1.6}
+
+section{padding:0 40px;position:relative;z-index:2}
+.section-inner{max-width:var(--max);margin:0 auto}
+.section-spacer{height:120px;position:relative}
+.section-spacer::after{content:'';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:80%;max-width:var(--max);height:1px;background:linear-gradient(90deg,transparent,rgba(245,245,247,.04),rgba(245,245,247,.06),rgba(245,245,247,.04),transparent)}
+
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+.liquid-glass{background:rgba(255,255,255,.01);backdrop-filter:blur(4px);box-shadow:inset 0 1px 1px rgba(255,255,255,.1);position:relative;overflow:hidden;border-radius:20px;padding:clamp(40px,5vw,60px);transition:transform .4s,box-shadow .4s}
+.liquid-glass::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1px;background:linear-gradient(135deg,rgba(255,255,255,.15) 0%,rgba(255,255,255,.05) 40%,rgba(255,255,255,.02) 60%,rgba(255,255,255,.08) 100%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;transition:background .4s}
+.liquid-glass::after{content:'';position:absolute;inset:0;pointer-events:none;opacity:.015;background-image:
+  radial-gradient(circle at 20% 30%,rgba(59,130,246,.3) 1px,transparent 1px),
+  radial-gradient(circle at 80% 70%,rgba(59,130,246,.3) 1px,transparent 1px),
+  radial-gradient(circle at 50% 50%,rgba(59,130,246,.2) 1px,transparent 1px);
+background-size:100% 100%}
+.liquid-glass:hover{transform:translateY(-2px);box-shadow:inset 0 1px 2px rgba(255,255,255,.15),0 4px 24px rgba(59,130,246,.08)}
+
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+.service-card-v{text-align:center}
+.service-card-v .card-icon{width:64px;height:64px;margin:0 auto 24px;display:flex;align-items:center;justify-content:center;border-radius:16px;background:rgba(59,130,246,.08)}
+.service-card-v .card-icon svg{width:32px;height:32px}
+.service-card-v h3{font-family:var(--serif);font-size:clamp(22px,2.5vw,28px);margin-bottom:16px}
+.service-card-v p{font-size:15px;color:var(--text2);line-height:1.7;margin-bottom:20px}
+.service-card-v .link{font-size:15px;font-weight:500;background:linear-gradient(135deg,var(--blue1),var(--blue2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+.steps-section h2{font-family:var(--serif);font-size:clamp(32px,4vw,48px);text-align:center;margin-bottom:60px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:60px}
+.step .step-num{font-family:var(--sans);font-weight:800;font-size:clamp(48px,6vw,72px);line-height:1;margin-bottom:20px}
+.step h4{font-family:var(--serif);font-size:clamp(20px,2.2vw,26px);color:var(--text);margin-bottom:14px}
+.step p{font-size:15px;color:var(--text2);line-height:1.7}
+
+.pricing-card{text-align:center}
+.pricing-card .price{font-family:var(--sans);font-weight:800;font-size:clamp(48px,8vw,80px);line-height:1;margin-bottom:12px}
+.pricing-card .price-label{font-size:18px;color:var(--text2);margin-bottom:24px}
+.pricing-card .price-desc{font-size:16px;color:var(--text2);line-height:1.7;max-width:500px;margin:0 auto 32px}
+.pricing-card ul{list-style:none;text-align:left;max-width:400px;margin:0 auto 32px}
+.pricing-card li{padding:10px 0;border-bottom:1px solid rgba(245,245,247,.06);font-size:15px;color:var(--text2);display:flex;align-items:center;gap:10px}
+.pricing-card li::before{content:'✓';color:var(--blue2);font-weight:600}
+
+.guarantee{text-align:center;padding:60px 40px}
+.guarantee h3{font-family:var(--serif);font-size:clamp(24px,3vw,36px);margin-bottom:16px}
+.guarantee p{font-size:17px;color:var(--text2);line-height:1.7;max-width:550px;margin:0 auto}
+
+.faq-section h2{font-family:var(--serif);font-size:clamp(28px,3.5vw,40px);text-align:center;margin-bottom:48px}
+.faq-item{border-bottom:1px solid rgba(245,245,247,.06);padding:24px 0}
+.faq-item:first-child{border-top:1px solid rgba(245,245,247,.06)}
+.faq-q{font-family:var(--sans);font-weight:600;font-size:17px;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.faq-q::after{content:'+';font-size:24px;color:var(--text3);transition:transform .3s}
+.faq-item.open .faq-q::after{transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .4s ease}
+.faq-item.open .faq-a{max-height:300px;padding-top:16px}
+.faq-a p{font-size:15px;color:var(--text2);line-height:1.7}
+
+.final-cta{text-align:center;position:relative}
+.final-cta::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:800px;height:500px;border-radius:50%;background:radial-gradient(ellipse,rgba(59,130,246,.09),rgba(59,130,246,.04) 40%,transparent 70%);pointer-events:none;z-index:0}
+.final-cta h2{font-family:var(--serif);font-size:clamp(40px,6vw,64px);line-height:1.1;margin-bottom:24px;position:relative;z-index:1}
+.final-cta .sub{font-size:18px;color:var(--text2);margin-bottom:40px;line-height:1.6;position:relative;z-index:1}
+.cta-btn{display:inline-block;padding:18px 48px;border-radius:60px;background:linear-gradient(135deg,var(--blue1),var(--blue2),var(--blue3));color:#0A0A0B;font-family:var(--sans);font-weight:600;font-size:18px;letter-spacing:.01em;transition:transform .3s,box-shadow .3s;position:relative;z-index:1}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(59,130,246,.3)}
+.final-cta .email{display:block;margin-top:24px;font-size:16px;color:var(--text3);transition:color .3s;position:relative;z-index:1}
+.final-cta .email:hover{color:var(--text2)}
+
+footer{text-align:center;padding:80px 40px 40px;font-size:14px;color:var(--text3);letter-spacing:.02em;position:relative;z-index:2;display:flex;align-items:center;justify-content:center;gap:8px}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+
+@media(max-width:1199px){
+  .services-grid{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr;gap:48px}
+}
+@media(max-width:767px){
+  section{padding:0 20px}
+  nav{padding:14px 20px}
+  .page-hero{padding:100px 20px 40px}
+  .page-hero h1{font-size:clamp(32px,8vw,48px)}
+  .liquid-glass{padding:28px 24px;border-radius:16px}
+  .section-spacer{height:60px}
+  .orb{display:none}
+  .page-watermarks{display:none}
+  .neural-bg{opacity:.4}
+  .bokeh-layer{opacity:.35}
+  .bokeh:nth-child(n+5){display:none}
+  .particles{opacity:.5}
+  .deco-lines{opacity:.5}
+  .cta-btn{padding:16px 40px;font-size:16px}
+  footer{padding:48px 20px 32px;font-size:13px}
+  .final-cta::before{width:400px;height:250px}
+  .faq-q{font-size:16px}
+}
+@media(prefers-reduced-motion:reduce){
+  .reveal{transition:none;opacity:1;transform:none}
+  .cta-btn{animation:none}
+  .particle{animation:none!important}
+  .neural-node,.data-dot{animation:none!important}
+  .bokeh{animation:none!important}
+}
+.nav-links{display:none}
+.nav-links a{font-size:15px;font-weight:500;color:var(--text2);letter-spacing:.02em;transition:color .3s}
+.nav-links a:hover{color:var(--text)}
+.nav-toggle{display:block;background:none;border:none;color:var(--text);font-size:24px;cursor:pointer;padding:8px}
+.nav-mobile-overlay{display:none;position:fixed;inset:0;z-index:99;background:rgba(10,10,11,.95);backdrop-filter:blur(16px);flex-direction:column;align-items:center;justify-content:center;gap:32px}
+.nav-mobile-overlay.open{display:flex}
+.nav-mobile-overlay a{font-size:24px;font-weight:500;color:var(--text);letter-spacing:.02em;transition:color .3s}
+.nav-mobile-overlay a:hover{color:var(--blue2)}
+.nav-mobile-overlay .mobile-close{position:absolute;top:24px;right:24px;background:none;border:none;color:var(--text);font-size:28px;cursor:pointer;padding:8px}
+@media(max-width:767px){.nav-cta{display:none}}
+
+/* FOOTER */
+footer{padding:80px 40px 40px;position:relative;z-index:2}
+.footer-inner{display:flex;flex-direction:column;align-items:center;gap:16px}
+.footer-nav,.footer-connect,.footer-legal,.footer-terms{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center}
+.footer-nav a,.footer-connect a,.footer-terms a{font-size:14px;color:var(--text3);letter-spacing:.02em;transition:color .3s}
+.footer-nav a:hover,.footer-connect a:hover,.footer-terms a:hover{color:var(--text2)}
+.footer-dot{color:var(--text3);font-size:14px;opacity:.5}
+.footer-legal{font-size:14px;color:var(--text3);letter-spacing:.02em;margin-top:8px}
+.footer-terms{margin-top:4px}
+.footer-terms a{font-size:12px;opacity:.6}
+.footer-terms a:hover{opacity:1}
+@media(max-width:767px){footer{padding:60px 24px 32px}.footer-inner{gap:12px}}
+nav{transform:translateY(0);transition:background .4s,transform .3s ease}
+nav.nav-hidden{transform:translateY(-100%)}
+nav .nav-logo{position:absolute;left:50%;transform:translateX(-50%)}
+</style>
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<!-- Open Graph -->
+<meta property="og:title" content="AI Services for Small Businesses | Aigenda — Warrington, UK">
+<meta property="og:description" content="Practical AI automation, strategy, and multi-agent systems for UK small businesses. Live in days, not months. Free consultation.">
+<meta property="og:url" content="https://aigenda.co.uk/services/">
+<meta name="twitter:title" content="AI Services for Small Businesses | Aigenda — Warrington, UK">
+<meta name="twitter:description" content="Practical AI automation, strategy, and multi-agent systems for UK small businesses. Live in days, not months. Free consultation.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Aigenda">
+<meta property="og:image" content="https://aigenda.co.uk/og-default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@theaigenda">
+<meta name="twitter:image" content="https://aigenda.co.uk/og-default.png">
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JFMNHGCCVC"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-JFMNHGCCVC");</script>
+</head>
+<body>
+
+<div class="bokeh-layer">
+  <div class="bokeh" style="width:400px;height:400px;top:5%;left:8%;background:radial-gradient(circle,rgba(59,130,246,.15),rgba(59,130,246,.06) 40%,transparent 70%);animation:bokehDrift1 20s ease-in-out infinite"></div>
+  <div class="bokeh" style="width:250px;height:250px;top:15%;right:12%;background:radial-gradient(circle,rgba(96,165,250,.14),rgba(96,165,250,.05) 40%,transparent 70%);animation:bokehDrift2 18s ease-in-out infinite"></div>
+  <div class="bokeh" style="width:500px;height:500px;top:-5%;left:40%;background:radial-gradient(circle,rgba(147,197,253,.04),rgba(147,197,253,.05) 40%,transparent 70%);animation:bokehDrift3 25s ease-in-out infinite"></div>
+  <div class="bokeh" style="width:320px;height:320px;top:10%;right:30%;background:radial-gradient(circle,rgba(255,255,255,.08),transparent 60%);animation:bokehDrift2 17s ease-in-out 5s infinite"></div>
+  <div class="bokeh" style="width:300px;height:300px;top:40%;left:15%;background:radial-gradient(circle,rgba(96,165,250,.10),transparent 60%);animation:bokehDrift3 22s ease-in-out 3s infinite"></div>
+  <div class="bokeh" style="width:220px;height:220px;top:55%;right:20%;background:radial-gradient(circle,rgba(59,130,246,.08),transparent 60%);animation:bokehDrift1 19s ease-in-out 2s infinite"></div>
+  <div class="bokeh" style="width:380px;height:380px;top:70%;left:50%;background:radial-gradient(circle,rgba(147,197,253,.06),transparent 60%);animation:bokehDrift2 21s ease-in-out 4s infinite"></div>
+  <div class="bokeh" style="width:260px;height:260px;top:85%;left:10%;background:radial-gradient(circle,rgba(59,130,246,.07),transparent 60%);animation:bokehDrift3 18s ease-in-out 6s infinite"></div>
+</div>
+
+<div class="neural-bg">
+<svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+  <line class="neural-line" x1="120" y1="180" x2="340" y2="290"/>
+  <line class="neural-line" x1="340" y1="290" x2="580" y2="150"/>
+  <line class="neural-line" x1="580" y1="150" x2="820" y2="380"/>
+  <line class="neural-line" x1="820" y1="380" x2="1050" y2="220"/>
+  <line class="neural-line" x1="1050" y1="220" x2="1300" y2="350"/>
+  <line class="neural-line" x1="1300" y1="350" x2="1500" y2="180"/>
+  <line class="neural-line" x1="1500" y1="180" x2="1750" y2="300"/>
+  <line class="neural-line" x1="120" y1="180" x2="250" y2="450"/>
+  <line class="neural-line" x1="250" y1="450" x2="480" y2="380"/>
+  <line class="neural-line" x1="480" y1="380" x2="340" y2="290"/>
+  <line class="neural-line" x1="580" y1="150" x2="700" y2="50"/>
+  <line class="neural-line" x1="700" y1="50" x2="950" y2="120"/>
+  <line class="neural-line" x1="950" y1="120" x2="1050" y2="220"/>
+  <line class="neural-line" x1="1300" y1="350" x2="1400" y2="500"/>
+  <line class="neural-line" x1="1400" y1="500" x2="1600" y2="420"/>
+  <line class="neural-line" x1="1600" y1="420" x2="1750" y2="300"/>
+  <line class="neural-line" x1="250" y1="450" x2="400" y2="600"/>
+  <line class="neural-line" x1="400" y1="600" x2="620" y2="520"/>
+  <line class="neural-line" x1="620" y1="520" x2="480" y2="380"/>
+  <line class="neural-line" x1="820" y1="380" x2="900" y2="550"/>
+  <line class="neural-line" x1="900" y1="550" x2="1100" y2="480"/>
+  <line class="neural-line" x1="1100" y1="480" x2="1300" y2="350"/>
+  <line class="neural-line" x1="400" y1="600" x2="600" y2="720"/>
+  <line class="neural-line" x1="600" y1="720" x2="800" y2="650"/>
+  <line class="neural-line" x1="800" y1="650" x2="900" y2="550"/>
+  <line class="neural-line" x1="1100" y1="480" x2="1250" y2="620"/>
+  <line class="neural-line" x1="1250" y1="620" x2="1400" y2="500"/>
+  <circle class="neural-node pulse1" cx="120" cy="180" r="4" opacity=".12"/>
+  <circle class="neural-node" cx="340" cy="290" r="3" opacity=".10"/>
+  <circle class="neural-node pulse2" cx="580" cy="150" r="5" opacity=".10"/>
+  <circle class="neural-node-dim" cx="250" cy="450" r="3" opacity=".06"/>
+  <circle class="neural-node" cx="480" cy="380" r="4" opacity=".08"/>
+  <circle class="neural-node pulse2" cx="820" cy="380" r="5" opacity=".12"/>
+  <circle class="neural-node" cx="1050" cy="220" r="4" opacity=".10"/>
+  <circle class="neural-node" cx="1300" cy="350" r="4" opacity=".11"/>
+  <circle class="neural-node pulse1" cx="1500" cy="180" r="5" opacity=".10"/>
+  <circle class="neural-node-dim" cx="1750" cy="300" r="3" opacity=".06"/>
+  <circle class="neural-node pulse3" cx="600" cy="720" r="4" opacity=".10"/>
+  <circle class="neural-node" cx="800" cy="650" r="3" opacity=".08"/>
+  <circle class="neural-node" cx="1250" cy="620" r="3" opacity=".08"/>
+  <circle class="data-dot" r="2" style="offset-path:path('M120,180 L340,290 L580,150 L820,380');animation:dataFlow1 15s linear infinite"/>
+  <circle class="data-dot" r="2" style="offset-path:path('M1300,350 L1500,180 L1750,300');animation:dataFlow1 18s linear 3s infinite"/>
+</svg>
+</div>
+
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+<div class="particles" id="particles"></div>
+<div class="deco-lines">
+  <div class="deco-line" style="width:40%;top:25%;left:5%;transform:rotate(2deg)"></div>
+  <div class="deco-line" style="width:30%;top:55%;right:0;transform:rotate(-1deg)"></div>
+  <div class="deco-line" style="width:50%;bottom:30%;left:10%;transform:rotate(1.5deg)"></div>
+  <div class="deco-line-v" style="height:30%;top:10%;left:20%"></div>
+  <div class="deco-line-v" style="height:25%;top:40%;right:25%"></div>
+</div>
+
+<div class="page-watermarks">
+  <span class="wm-global" style="font-size:200px;top:80vh;left:-20px;transform:rotate(-6deg);opacity:.06">A</span>
+  <span class="wm-global" style="font-size:180px;top:120vh;right:8%;transform:rotate(8deg);opacity:.05">I</span>
+  <span class="wm-global" style="font-size:220px;top:160vh;left:40%;transform:rotate(-3deg);opacity:.04">G</span>
+  <span class="wm-global" style="font-size:250px;top:200vh;right:5%;transform:rotate(12deg);opacity:.05">E</span>
+  <span class="wm-global" style="font-size:190px;top:240vh;left:5%;transform:rotate(-10deg);opacity:.04">N</span>
+  <span class="wm-global" style="font-size:210px;top:280vh;left:55%;transform:rotate(4deg);opacity:.05">D</span>
+  <span class="wm-global" style="font-size:170px;top:320vh;right:20%;transform:rotate(-7deg);opacity:.04">A</span>
+  <div class="prism-watermark" style="top:150vh;left:5%;transform:rotate(-15deg);opacity:.03"><svg viewBox="0 0 32 32" width="400" height="400"><path d="M16 2L4 28h8l4-10V2z" fill="#60A5FA"/><path d="M16 2v16l4 10h8L16 2z" fill="#93C5FD"/></svg></div>
+  <div class="prism-watermark" style="top:300vh;right:3%;transform:rotate(20deg);opacity:.03"><svg viewBox="0 0 32 32" width="350" height="350"><path d="M16 2L4 28h8l4-10V2z" fill="#60A5FA"/><path d="M16 2v16l4 10h8L16 2z" fill="#93C5FD"/></svg></div>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <button class="nav-toggle" aria-label="Menu">☰</button>
+  <a href="/" class="nav-logo" aria-label="Aigenda home">
+    <svg viewBox="0 0 32 32" width="32" height="32"><path d="M16 2L4 28h8l4-10V2z" fill="#60A5FA"/><path d="M16 2v16l4 10h8L16 2z" fill="#93C5FD"/></svg>
+  </a>
+  <a href="/services/" class="nav-cta">See how it works →</a>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero reveal">
+  <h1>AI That Works <span class="gradient-text">From Day One</span></h1>
+  <p class="subtitle">Practical AI automation, strategy, and multi-agent systems for UK small businesses. Live in days, not months.</p>
+</div>
+
+<div class="section-spacer"></div>
+
+<!-- SERVICE CARDS -->
+<section>
+  <div class="section-inner">
+    <div class="services-grid reveal">
+      <div class="liquid-glass service-card-v">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--blue2)" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        </div>
+        <h3>AI Automation</h3>
+        <p>Automate the repetitive tasks eating your evenings. Client follow-ups, scheduling, invoicing — live within days.</p>
+        <a href="/services/ai-automation/" class="link">Learn more →</a>
+      </div>
+      <div class="liquid-glass service-card-v">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--blue2)" stroke-width="1.5"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+        </div>
+        <h3>AI Strategy</h3>
+        <p>A practical roadmap — not a 40-slide deck. We identify your best automation candidates and build a phased implementation plan.</p>
+        <a href="#" class="link">Coming soon →</a>
+      </div>
+      <div class="liquid-glass service-card-v">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--blue2)" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 1v4m0 14v4m-7.8-2.2l2.8-2.8m10-10l2.8-2.8M1 12h4m14 0h4M4.2 4.2l2.8 2.8m10 10l2.8 2.8"/></svg>
+        </div>
+        <h3>Multi-Agent Systems</h3>
+        <p>Specialist AI agents that collaborate, validate, and scale. Built by operators who run these systems daily — not consultants who've read about them.</p>
+        <a href="#" class="link">Coming soon →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-spacer"></div>
+
+<!-- HOW IT WORKS -->
+<section class="steps-section">
+  <div class="section-inner">
+    <h2 class="reveal">How It Works</h2>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-num gradient-text">01</div>
+        <h4>Have a Chat</h4>
+        <p>Book a free call. Tell us what's frustrating you — the repetitive work, the manual processes, the tasks that keep you up at night.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num gradient-text">02</div>
+        <h4>Get a Plan</h4>
+        <p>We audit your business, identify the best automation opportunities, and give you a clear roadmap with costs. No surprises.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num gradient-text">03</div>
+        <h4>See Results</h4>
+        <p>We implement, integrate with your existing tools, train your team, and stick around to make sure everything works.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-spacer"></div>
+
+<!-- PRICING -->
+<section>
+  <div class="section-inner reveal">
+    <div class="liquid-glass pricing-card">
+      <div class="price gradient-text">£499</div>
+      <div class="price-label">Quick-Win AI Setup</div>
+      <p class="price-desc">2-3 AI tools tailored to your business, live within days. If they save just 2 hours per week, they pay for themselves in under a month.</p>
+      <ul>
+        <li>Business process audit</li>
+        <li>2-3 custom AI automations</li>
+        <li>Integration with your existing tools</li>
+        <li>Team training & documentation</li>
+        <li>30-day support included</li>
+      </ul>
+      <a href="/contact/" class="cta-btn">Get started →</a>
+    </div>
+  </div>
+</section>
+
+<div class="section-spacer"></div>
+
+<!-- GUARANTEE -->
+<section>
+  <div class="section-inner reveal">
+    <div class="guarantee">
+      <svg viewBox="0 0 32 32" width="48" height="48" style="display:block;margin:0 auto 20px;opacity:.6"><path d="M16 2L4 28h8l4-10V2z" fill="#60A5FA"/><path d="M16 2v16l4 10h8L16 2z" fill="#93C5FD"/></svg>
+      <h3>30-Day Money-Back Guarantee</h3>
+      <p>If the tools we set up don't save you time in the first 30 days, you get a full refund. No questions, no hassle. We're that confident.</p>
+    </div>
+  </div>
+</section>
+
+<div class="section-spacer"></div>
+
+<!-- FAQ -->
+<section>
+  <div class="section-inner">
+    <div class="faq-section reveal">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What AI services does Aigenda provide? <span></span></div>
+        <div class="faq-a"><p>We offer three core services: AI Automation (quick-win tool setups from £499), AI Strategy (practical implementation roadmaps), and Multi-Agent Systems (specialist AI teams for complex operations). All services are designed for small businesses and delivered by operators who run AI in production daily.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">How quickly can AI automation be set up? <span></span></div>
+        <div class="faq-a"><p>Most quick-win automations are live within days, not months. We audit your business, identify the highest-impact opportunities, and implement 2-3 tailored AI tools. The entire process — from first call to live automation — typically takes under two weeks.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What industries does Aigenda work with? <span></span></div>
+        <div class="faq-a"><p>We work with any small business that has repetitive processes — accountancy practices, trades, professional services, retail, hospitality, and more. If you're doing manual work that a machine could handle, we can help.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Is there a guarantee? <span></span></div>
+        <div class="faq-a"><p>Yes. We offer a 30-day money-back guarantee on all quick-win automation setups. If the tools we implement don't save you time in the first month, you get a full refund. No questions asked.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">How is Aigenda different from other AI consultancies? <span></span></div>
+        <div class="faq-a"><p>We're operators, not just consultants. We run multi-agent AI systems in production every day. That means we recommend tools and approaches we've actually used — not theoretical frameworks from a slide deck.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Can Aigenda work with businesses outside Warrington? <span></span></div>
+        <div class="faq-a"><p>Absolutely. While we're based in Warrington, UK, we work with businesses across the North West and throughout the UK. Most of our work is done remotely, though we're happy to meet in person for local clients.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-spacer"></div>
+
+<!-- CTA -->
+<section class="final-cta">
+  <div class="section-inner reveal">
+    <h2>Ready to save time?</h2>
+    <p class="sub">No jargon. No obligation. Just a conversation about what AI can do for your business.</p>
+    <a href="/contact/" class="cta-btn">Book your free call →</a>
+    <a href="mailto:hello@aigenda.co.uk" class="email">hello@aigenda.co.uk</a>
+  </div>
+</section>
+
+<div class="section-spacer" style="height:80px"></div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-nav">
+      <a href="/services/">Services</a>
+      <span class="footer-dot">·</span>
+      <a href="/about/">About</a>
+      <span class="footer-dot">·</span>
+      <a href="/blog/">Blog</a>
+      <span class="footer-dot">·</span>
+      <a href="/contact/">Contact</a>
+    </div>
+    <div class="footer-connect">
+      <a href="mailto:hello@aigenda.co.uk">hello@aigenda.co.uk</a>
+      <span class="footer-dot">·</span>
+      <a href="https://x.com/theaigenda" target="_blank" rel="noopener">@theaigenda</a>
+    </div>
+    <div class="footer-legal">
+      <span class="prism-icon"><svg viewBox="0 0 32 32" width="16" height="16"><path d="M16 2L4 28h8l4-10V2z" fill="#60A5FA"/><path d="M16 2v16l4 10h8L16 2z" fill="#93C5FD"/></svg></span>
+      Aigenda · Warrington, UK · © 2026
+    </div>
+    <div class="footer-terms">
+      <a href="/privacy/">Privacy</a>
+      <span class="footer-dot">·</span>
+      <a href="/terms/">Terms</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const container=document.getElementById('particles');
+  const count=window.innerWidth<768?12:30;
+  for(let i=0;i<count;i++){
+    const p=document.createElement('div');
+    p.className='particle';
+    p.style.left=Math.random()*100+'%';
+    p.style.top=Math.random()*100+'%';
+    p.style.width=(Math.random()*1.5+0.5)+'px';
+    p.style.height=p.style.width;
+    p.style.animation=`floatUp ${Math.random()*20+15}s linear ${Math.random()*10}s infinite`;
+    container.appendChild(p);
+  }
+})();
+const io=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}});
+},{threshold:0.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>80);},{passive:true});
+(function(){
+  function sizeWM(){
+    var pw=document.querySelector(".page-watermarks");
+    if(!pw)return;
+    var dH=document.documentElement.scrollHeight;
+    pw.style.height=dH+"px";
+    pw.querySelectorAll("[style*=vh]").forEach(function(el){
+      var m=el.style.top.match(/([\.\d]+)vh/);
+      if(m){el.style.top=(parseFloat(m[1])/100*dH)+"px";}
+    });
+  }
+  requestAnimationFrame(function(){requestAnimationFrame(sizeWM);});
+  window.addEventListener("resize",sizeWM);
+})();
+// Mobile nav
+(function(){
+  var tog=document.querySelector(".nav-toggle");
+  if(!tog)return;
+  var ov=document.createElement("div");
+  ov.className="nav-mobile-overlay";
+  ov.innerHTML='<button class="mobile-close" aria-label="Close menu">✕</button><a href="/">Home</a><a href="/services/">Services</a><a href="/about/">About</a><a href="/blog/">Blog</a><a href="/contact/">Contact</a>';
+  document.body.appendChild(ov);
+  tog.addEventListener("click",function(){ov.classList.add("open")});
+  ov.querySelector(".mobile-close").addEventListener("click",function(){ov.classList.remove("open")});
+  ov.querySelectorAll("a").forEach(function(a){a.addEventListener("click",function(){ov.classList.remove("open")})});
+})();
+// Smart nav — hide on scroll down, show on scroll up
+(function(){
+  var nav=document.getElementById("nav"),lastY=0,ticking=false;
+  window.addEventListener("scroll",function(){
+    if(!ticking){
+      requestAnimationFrame(function(){
+        var y=window.scrollY;
+        if(y>80&&y>lastY){nav.classList.add("nav-hidden")}
+        else{nav.classList.remove("nav-hidden")}
+        lastY=y;ticking=false;
+      });
+      ticking=true;
+    }
+  },{passive:true});
+})();
+</script>
+</body>
+</html>

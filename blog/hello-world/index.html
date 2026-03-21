@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hello, World | Aigenda Blog</title>
+<meta name="description" content="We built a multi-agent AI team that runs real business operations. This is where we share what we've learned.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital,wght@0,400;1,400&family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0A0A0B;--text:#F5F5F7;--text2:#A1A1A6;--text3:#6E6E73;--blue1:#3B82F6;--blue2:#60A5FA;--blue3:#93C5FD;--serif:'DM Serif Display',Georgia,serif;--sans:'Inter',system-ui,sans-serif;--max:1200px}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden;position:relative}
+body::before{content:'';position:fixed;inset:0;z-index:-2;background:
+  radial-gradient(ellipse 80% 60% at 20% 10%, rgba(15,23,42,.9) 0%, transparent 60%),
+  radial-gradient(ellipse 70% 50% at 80% 20%, rgba(17,24,50,.7) 0%, transparent 55%),
+  radial-gradient(ellipse 60% 70% at 10% 60%, rgba(12,20,45,.6) 0%, transparent 50%),
+  radial-gradient(ellipse 90% 50% at 70% 80%, rgba(20,15,40,.5) 0%, transparent 55%),
+  radial-gradient(ellipse 50% 40% at 50% 40%, rgba(10,30,55,.4) 0%, transparent 50%),
+  radial-gradient(ellipse 80% 60% at 90% 50%, rgba(18,12,35,.3) 0%, transparent 50%),
+  linear-gradient(180deg, #080B15 0%, #0A0A0B 40%, #0B0A10 70%, #080B15 100%);pointer-events:none}
+body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.035;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");background-size:256px 256px}
+a{color:inherit;text-decoration:none}
+.gradient-text{background:linear-gradient(135deg,var(--blue1),var(--blue2),var(--blue3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.bokeh-layer{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.bokeh{position:absolute;border-radius:50%;pointer-events:none}
+@keyframes bokehDrift1{0%,100%{transform:translate(0,0)}25%{transform:translate(15px,-10px)}50%{transform:translate(-8px,20px)}75%{transform:translate(20px,8px)}}
+@keyframes bokehDrift2{0%,100%{transform:translate(0,0)}25%{transform:translate(-12px,15px)}50%{transform:translate(18px,-8px)}75%{transform:translate(-5px,-18px)}}
+@keyframes bokehDrift3{0%,100%{transform:translate(0,0)}33%{transform:translate(10px,15px)}66%{transform:translate(-15px,-10px)}}
+.neural-bg{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.neural-bg svg{width:100%;height:100%}
+@keyframes nodePulse1{0%,100%{opacity:.08}50%{opacity:.15}}
+@keyframes nodePulse2{0%,100%{opacity:.10}50%{opacity:.18}}
+@keyframes nodePulse3{0%,100%{opacity:.06}50%{opacity:.13}}
+@keyframes dataFlow1{0%{offset-distance:0%}100%{offset-distance:100%}}
+.neural-node{fill:#60A5FA;opacity:.35}
+.neural-line{stroke:rgba(96,165,250,.18);stroke-width:.5;fill:none}
+.neural-node.pulse1{animation:nodePulse1 3s ease-in-out infinite}
+.neural-node.pulse2{animation:nodePulse2 4s ease-in-out 1s infinite}
+.neural-node.pulse3{animation:nodePulse3 5s ease-in-out 2s infinite}
+.data-dot{fill:#93C5FD;opacity:.5}
+.particles{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.particle{position:absolute;width:2px;height:2px;background:var(--text);border-radius:50%;opacity:.06}
+@keyframes floatUp{0%{transform:translateY(0) translateX(0);opacity:.06}50%{opacity:.07}100%{transform:translateY(-100vh) translateX(30px);opacity:0}}
+.orb{position:fixed;border-radius:50%;pointer-events:none;z-index:0;filter:blur(80px)}
+.orb-1{width:500px;height:500px;background:radial-gradient(circle,rgba(59,130,246,.04),transparent 70%);top:10%;left:-10%}
+.orb-2{width:400px;height:400px;background:radial-gradient(circle,rgba(96,165,250,.03),transparent 70%);top:50%;right:-8%}
+.deco-lines{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.deco-line{position:absolute;background:linear-gradient(90deg,transparent,rgba(245,245,247,.04),transparent);height:0.5px}
+.deco-line-v{position:absolute;background:linear-gradient(180deg,transparent,rgba(245,245,247,.03),transparent);width:0.5px}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:24px 40px;display:flex;justify-content:space-between;align-items:center;transition:background .4s,transform .3s ease}
+nav.scrolled{background:rgba(10,10,11,.85);backdrop-filter:blur(12px)}
+nav.nav-hidden{transform:translateY(-100%)}
+nav .nav-logo{position:absolute;left:50%;transform:translateX(-50%)}
+.nav-cta{opacity:0;transform:translateY(-8px);transition:opacity .4s,transform .4s;font-size:14px;font-weight:500;letter-spacing:.02em;color:var(--text2)}
+.nav-cta:hover{color:var(--text)}
+nav.scrolled .nav-cta{opacity:1;transform:translateY(0)}
+.nav-toggle{display:block;background:none;border:none;color:var(--text);font-size:24px;cursor:pointer;padding:8px}
+.nav-mobile-overlay{display:none;position:fixed;inset:0;z-index:99;background:rgba(10,10,11,.95);backdrop-filter:blur(16px);flex-direction:column;align-items:center;justify-content:center;gap:32px}
+.nav-mobile-overlay.open{display:flex}
+.nav-mobile-overlay a{font-size:24px;font-weight:500;color:var(--text);letter-spacing:.02em;transition:color .3s}
+.nav-mobile-overlay a:hover{color:var(--blue2)}
+.nav-mobile-overlay .mobile-close{position:absolute;top:24px;right:24px;background:none;border:none;color:var(--text);font-size:28px;cursor:pointer;padding:8px}
+@media(max-width:767px){.nav-cta{display:none}}
+
+/* Article layout */
+.article-wrapper{position:relative;z-index:2;max-width:720px;margin:0 auto;padding:160px 40px 80px}
+.back-link{display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--text3);margin-bottom:48px;transition:color .3s}
+.back-link:hover{color:var(--text2)}
+.article-meta{margin-bottom:32px}
+.article-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.article-tag{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--blue2);padding:4px 12px;border-radius:20px;border:1px solid rgba(96,165,250,.2);background:rgba(96,165,250,.06)}
+.article-title{font-family:var(--serif);font-size:clamp(32px,5vw,48px);line-height:1.15;margin-bottom:16px}
+.article-info{font-size:14px;color:var(--text3);display:flex;gap:16px;flex-wrap:wrap}
+.article-body{margin-top:48px}
+.article-body p{font-size:17px;color:var(--text2);line-height:1.8;margin-bottom:24px}
+.article-body h2{font-family:var(--serif);font-size:clamp(24px,3.5vw,32px);line-height:1.25;margin:48px 0 20px;color:var(--text)}
+.article-body h3{font-family:var(--serif);font-size:clamp(20px,2.5vw,24px);line-height:1.3;margin:36px 0 16px;color:var(--text)}
+.article-body ul,.article-body ol{margin:0 0 24px 24px;color:var(--text2);font-size:17px;line-height:1.8}
+.article-body li{margin-bottom:8px}
+.article-body li strong{color:var(--text);font-weight:500}
+.article-body strong{color:var(--text);font-weight:500}
+.article-body hr{border:none;height:1px;background:linear-gradient(90deg,transparent,rgba(245,245,247,.08),transparent);margin:48px 0}
+.article-body a{color:var(--blue2);text-decoration:underline;text-underline-offset:2px;transition:color .3s}
+.article-body a:hover{color:var(--blue3)}
+.article-body blockquote{border-left:3px solid var(--blue1);padding-left:20px;margin:24px 0;font-style:italic;color:var(--text2)}
+.article-body table{width:100%;border-collapse:collapse;margin:24px 0;font-size:15px}
+.article-body th,.article-body td{padding:12px 16px;text-align:left;border-bottom:1px solid rgba(245,245,247,.06);color:var(--text2)}
+.article-body th{color:var(--text);font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:.04em}
+.article-body code{background:rgba(59,130,246,.08);padding:2px 6px;border-radius:4px;font-size:15px;color:var(--blue2)}
+.article-body pre{background:rgba(255,255,255,.03);border:1px solid rgba(245,245,247,.06);border-radius:12px;padding:20px;margin:24px 0;overflow-x:auto;font-size:14px;line-height:1.6}
+.article-body pre code{background:none;padding:0;color:var(--text2)}
+
+.article-bottom{margin-top:64px;padding-top:48px;border-top:1px solid rgba(245,245,247,.06)}
+.article-bottom-cta{text-align:center}
+.article-bottom-cta p{font-size:16px;color:var(--text2);margin-bottom:20px}
+.cta-btn{display:inline-block;padding:14px 36px;border-radius:60px;background:linear-gradient(135deg,var(--blue1),var(--blue2),var(--blue3));color:#0A0A0B;font-family:var(--sans);font-weight:600;font-size:16px;transition:transform .3s,box-shadow .3s}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(59,130,246,.3)}
+
+footer{padding:80px 40px 40px;position:relative;z-index:2}
+.footer-inner{display:flex;flex-direction:column;align-items:center;gap:16px}
+.footer-nav,.footer-connect,.footer-legal,.footer-terms{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center}
+.footer-nav a,.footer-connect a,.footer-terms a{font-size:14px;color:var(--text3);letter-spacing:.02em;transition:color .3s}
+.footer-nav a:hover,.footer-connect a:hover,.footer-terms a:hover{color:var(--text2)}
+.footer-dot{color:var(--text3);font-size:14px;opacity:.5}
+.footer-legal{font-size:14px;color:var(--text3);letter-spacing:.02em;margin-top:8px}
+.footer-terms{margin-top:4px}
+.footer-terms a{font-size:12px;opacity:.6}
+.footer-terms a:hover{opacity:1}
+.prism-icon{display:inline-block;vertical-align:middle;flex-shrink:0}
+
+@media(max-width:767px){
+  nav{padding:14px 20px}
+  .article-wrapper{padding:100px 20px 60px}
+  .orb{display:none}
+  .neural-bg{opacity:.3}.bokeh-layer{opacity:.25}.bokeh:nth-child(n+4){display:none}
+  .particles,.deco-lines{opacity:.4}
+  footer{padding:60px 24px 32px}.footer-inner{gap:12px}
+}
+@media(prefers-reduced-motion:reduce){.particle{animation:none!important}.neural-node,.data-dot{animation:none!important}.bokeh{animation:none!important}}
+</style>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<meta property="og:title" content="Hello, World | Aigenda Blog">
+<meta property="og:description" content="We built a multi-agent AI team that runs real business operations. This is where we share what we've learned.">
+<meta property="og:url" content="https://aigenda.co.uk/posts/hello-world/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Aigenda">
+<meta property="og:image" content="https://aigenda.co.uk/og-default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@theaigenda">
+<meta name="twitter:title" content="Hello, World | Aigenda Blog">
+<meta name="twitter:description" content="We built a multi-agent AI team that runs real business operations. This is where we share what we've learned.">
+<meta name="twitter:image" content="https://aigenda.co.uk/og-default.png">
+</head>
+<body>
+
+<div class="bokeh-layer">
+  <div class="bokeh" style="width:350px;height:350px;top:5%;left:8%;background:radial-gradient(circle,rgba(59,130,246,.10),rgba(59,130,246,.04) 40%,transparent 70%);animation:bokehDrift1 20s ease-in-out infinite"></div>
+  <div class="bokeh" style="width:250px;height:250px;top:20%;right:12%;background:radial-gradient(circle,rgba(96,165,250,.08),transparent 60%);animation:bokehDrift2 18s ease-in-out infinite"></div>
+  <div class="bokeh" style="width:300px;height:300px;top:50%;left:15%;background:radial-gradient(circle,rgba(147,197,253,.06),transparent 60%);animation:bokehDrift3 22s ease-in-out 3s infinite"></div>
+</div>
+
+<div class="neural-bg">
+<svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+  <line class="neural-line" x1="120" y1="180" x2="340" y2="290"/>
+  <line class="neural-line" x1="340" y1="290" x2="580" y2="150"/>
+  <line class="neural-line" x1="580" y1="150" x2="820" y2="380"/>
+  <line class="neural-line" x1="820" y1="380" x2="1050" y2="220"/>
+  <line class="neural-line" x1="1050" y1="220" x2="1300" y2="350"/>
+  <circle class="neural-node pulse1" cx="120" cy="180" r="4" opacity=".08"/>
+  <circle class="neural-node pulse2" cx="580" cy="150" r="5" opacity=".07"/>
+  <circle class="neural-node" cx="1050" cy="220" r="4" opacity=".07"/>
+  <circle class="data-dot" r="2" style="offset-path:path('M120,180 L340,290 L580,150 L820,380');animation:dataFlow1 15s linear infinite"/>
+</svg>
+</div>
+
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="particles" id="particles"></div>
+<div class="deco-lines">
+  <div class="deco-line" style="width:40%;top:25%;left:5%;transform:rotate(2deg)"></div>
+  <div class="deco-line-v" style="height:30%;top:10%;left:20%"></div>
+</div>
+
+<nav id="nav">
+  <button class="nav-toggle" aria-label="Menu">☰</button>
+  <a href="/" class="nav-logo" aria-label="Aigenda home">
+    <svg viewBox="0 0 32 32" width="32" height="32"><path d="M16 2L4 28h8l4-10V2z" fill="#60A5FA"/><path d="M16 2v16l4 10h8L16 2z" fill="#93C5FD"/></svg>
+  </a>
+  <a href="/services/" class="nav-cta">See how it works →</a>
+</nav>
+
+<article class="article-wrapper">
+  <a href="/blog/" class="back-link">← Back to blog</a>
+
+  <div class="article-meta">
+    <div class="article-tags">
+      <span class="article-tag">Meta</span>
+      <span class="article-tag">Introduction</span>
+    </div>
+    <h1 class="article-title">Hello, World</h1>
+    <div class="article-info">
+      <span>14 March 2026</span>
+      <span>·</span>
+      <span>2 min read</span>
+    </div>
+  </div>
+
+  <div class="article-body">
+    <p>Most companies are using AI to write emails.</p>
+    <p>We built a multi-agent AI team that runs real business operations. Not a demo. Not a hackathon project. Production. Every day.</p>
+
+    <h2>The setup</h2>
+    <p>Specialist AI agents — each with their own expertise, their own workspace, their own personality. One orchestrator keeping them honest.</p>
+    <p>They argue. They collaborate. They catch each other's mistakes. It's messy and it works.</p>
+
+    <h2>What we'll share here</h2>
+    <ul>
+      <li><strong>What actually works</strong> vs the hype</li>
+      <li><strong>Frameworks you can steal</strong> for your own AI operations</li>
+      <li><strong>Honest failures</strong> — because that's where the real lessons live</li>
+    </ul>
+    <p>No fluff. No "AI will replace everyone." Just an operator's notes from the trenches.</p>
+    <p>Follow along.</p>
+  </div>
+
+  <div class="article-bottom">
+    <div class="article-bottom-cta">
+      <p>Want to see how we built the team? Read the full guide.</p>
+      <a href="/blog/how-we-built-a-multi-agent-ai-team/" class="cta-btn">How We Built It →</a>
+    </div>
+  </div>
+</article>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-nav">
+      <a href="/services/">Services</a>
+      <span class="footer-dot">·</span>
+      <a href="/about/">About</a>
+      <span class="footer-dot">·</span>
+      <a href="/blog/">Blog</a>
+      <span class="footer-dot">·</span>
+      <a href="/contact/">Contact</a>
+    </div>
+    <div class="footer-connect">
+      <a href="mailto:hello@aigenda.co.uk">hello@aigenda.co.uk</a>
+      <span class="footer-dot">·</span>
+      <a href="https://x.com/theaigenda" target="_blank" rel="noopener">@theaigenda</a>
+    </div>
+    <div class="footer-legal">
+      <span class="prism-icon"><svg viewBox="0 0 32 32" width="16" height="16"><path d="M16 2L4 28h8l4-10V2z" fill="#60A5FA"/><path d="M16 2v16l4 10h8L16 2z" fill="#93C5FD"/></svg></span>
+      Aigenda · Warrington, UK · © 2026
+    </div>
+    <div class="footer-terms">
+      <a href="/privacy/">Privacy</a>
+      <span class="footer-dot">·</span>
+      <a href="/terms/">Terms</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){const c=document.getElementById('particles');const n=window.innerWidth<768?8:20;for(let i=0;i<n;i++){const p=document.createElement('div');p.className='particle';p.style.left=Math.random()*100+'%';p.style.top=Math.random()*100+'%';p.style.width=(Math.random()*1.5+0.5)+'px';p.style.height=p.style.width;p.style.animation=`floatUp ${Math.random()*20+15}s linear ${Math.random()*10}s infinite`;c.appendChild(p);}})();
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>80);},{passive:true});
+(function(){var nav=document.getElementById("nav"),lastY=0,ticking=false;window.addEventListener("scroll",function(){if(!ticking){requestAnimationFrame(function(){var y=window.scrollY;if(y>80&&y>lastY){nav.classList.add("nav-hidden")}else{nav.classList.remove("nav-hidden")}lastY=y;ticking=false;});ticking=true;}},{passive:true});})();
+(function(){var tog=document.querySelector(".nav-toggle");if(!tog)return;var ov=document.createElement("div");ov.className="nav-mobile-overlay";ov.innerHTML='<button class="mobile-close" aria-label="Close menu">✕</button><a href="/">Home</a><a href="/services/">Services</a><a href="/about/">About</a><a href="/blog/">Blog</a><a href="/contact/">Contact</a>';document.body.appendChild(ov);tog.addEventListener("click",function(){ov.classList.add("open")});ov.querySelector(".mobile-close").addEventListener("click",function(){ov.classList.remove("open")});ov.querySelectorAll("a").forEach(function(a){a.addEventListener("click",function(){ov.classList.remove("open")})});})();
+</script>
+</body>
+</html>

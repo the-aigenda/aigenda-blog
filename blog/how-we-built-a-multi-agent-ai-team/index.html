@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How We Built a Multi-Agent AI Team | Aigenda Blog</title>
+<meta name="description" content="A practical guide to building a multi-agent AI team that actually works in production. No demos, no theory — just what we did, why, and how you can do it too.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital,wght@0,400;1,400&family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0A0A0B;--text:#F5F5F7;--text2:#A1A1A6;--text3:#6E6E73;--blue1:#3B82F6;--blue2:#60A5FA;--blue3:#93C5FD;--serif:'DM Serif Display',Georgia,serif;--sans:'Inter',system-ui,sans-serif;--max:1200px}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden;position:relative}
+body::before{content:'';position:fixed;inset:0;z-index:-2;background:
+  radial-gradient(ellipse 80% 60% at 20% 10%, rgba(15,23,42,.9) 0%, transparent 60%),
+  radial-gradient(ellipse 70% 50% at 80% 20%, rgba(17,24,50,.7) 0%, transparent 55%),
+  radial-gradient(ellipse 60% 70% at 10% 60%, rgba(12,20,45,.6) 0%, transparent 50%),
+  radial-gradient(ellipse 90% 50% at 70% 80%, rgba(20,15,40,.5) 0%, transparent 55%),
+  radial-gradient(ellipse 50% 40% at 50% 40%, rgba(10,30,55,.4) 0%, transparent 50%),
+  radial-gradient(ellipse 80% 60% at 90% 50%, rgba(18,12,35,.3) 0%, transparent 50%),
+  linear-gradient(180deg, #080B15 0%, #0A0A0B 40%, #0B0A10 70%, #080B15 100%);pointer-events:none}
+body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.035;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");background-size:256px 256px}
+a{color:inherit;text-decoration:none}
+.gradient-text{background:linear-gradient(135deg,var(--blue1),var(--blue2),var(--blue3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.bokeh-layer{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.bokeh{position:absolute;border-radius:50%;pointer-events:none}
+@keyframes bokehDrift1{0%,100%{transform:translate(0,0)}25%{transform:translate(15px,-10px)}50%{transform:translate(-8px,20px)}75%{transform:translate(20px,8px)}}
+@keyframes bokehDrift2{0%,100%{transform:translate(0,0)}25%{transform:translate(-12px,15px)}50%{transform:translate(18px,-8px)}75%{transform:translate(-5px,-18px)}}
+@keyframes bokehDrift3{0%,100%{transform:translate(0,0)}33%{transform:translate(10px,15px)}66%{transform:translate(-15px,-10px)}}
+.neural-bg{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.neural-bg svg{width:100%;height:100%}
+@keyframes nodePulse1{0%,100%{opacity:.08}50%{opacity:.15}}
+@keyframes nodePulse2{0%,100%{opacity:.10}50%{opacity:.18}}
+@keyframes dataFlow1{0%{offset-distance:0%}100%{offset-distance:100%}}
+.neural-node{fill:#60A5FA;opacity:.35}
+.neural-line{stroke:rgba(96,165,250,.18);stroke-width:.5;fill:none}
+.neural-node.pulse1{animation:nodePulse1 3s ease-in-out infinite}
+.neural-node.pulse2{animation:nodePulse2 4s ease-in-out 1s infinite}
+.data-dot{fill:#93C5FD;opacity:.5}
+.particles{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.particle{position:absolute;width:2px;height:2px;background:var(--text);border-radius:50%;opacity:.06}
+@keyframes floatUp{0%{transform:translateY(0) translateX(0);opacity:.06}50%{opacity:.07}100%{transform:translateY(-100vh) translateX(30px);opacity:0}}
+.orb{position:fixed;border-radius:50%;pointer-events:none;z-index:0;filter:blur(80px)}
+.orb-1{width:500px;height:500px;background:radial-gradient(circle,rgba(59,130,246,.04),transparent 70%);top:10%;left:-10%}
+.orb-2{width:400px;height:400px;background:radial-gradient(circle,rgba(96,165,250,.03),transparent 70%);top:50%;right:-8%}
+.deco-lines{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.deco-line{position:absolute;background:linear-gradient(90deg,transparent,rgba(245,245,247,.04),transparent);height:0.5px}
+.deco-line-v{position:absolute;background:linear-gradient(180deg,transparent,rgba(245,245,247,.03),transparent);width:0.5px}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:24px 40px;display:flex;justify-content:space-between;align-items:center;transition:background .4s,transform .3s ease}
+nav.scrolled{background:rgba(10,10,11,.85);backdrop-filter:blur(12px)}
+nav.nav-hidden{transform:translateY(-100%)}
+nav .nav-logo{position:absolute;left:50%;transform:translateX(-50%)}
+.nav-cta{opacity:0;transform:translateY(-8px);transition:opacity .4s,transform .4s;font-size:14px;font-weight:500;letter-spacing:.02em;color:var(--text2)}
+.nav-cta:hover{color:var(--text)}
+nav.scrolled .nav-cta{opacity:1;transform:translateY(0)}
+.nav-toggle{display:block;background:none;border:none;color:var(--text);font-size:24px;cursor:pointer;padding:8px}
+.nav-mobile-overlay{display:none;position:fixed;inset:0;z-index:99;background:rgba(10,10,11,.95);backdrop-filter:blur(16px);flex-direction:column;align-items:center;justify-content:center;gap:32px}
+.nav-mobile-overlay.open{display:flex}
+.nav-mobile-overlay a{font-size:24px;font-weight:500;color:var(--text);letter-spacing:.02em;transition:color .3s}
+.nav-mobile-overlay a:hover{color:var(--blue2)}
+.nav-mobile-overlay .mobile-close{position:absolute;top:24px;right:24px;background:none;border:none;color:var(--text);font-size:28px;cursor:pointer;padding:8px}
+@media(max-width:767px){.nav-cta{display:none}}
+
+.article-wrapper{position:relative;z-index:2;max-width:720px;margin:0 auto;padding:160px 40px 80px}
+.back-link{display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--text3);margin-bottom:48px;transition:color .3s}
+.back-link:hover{color:var(--text2)}
+.article-meta{margin-bottom:32px}
+.article-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.article-tag{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--blue2);padding:4px 12px;border-radius:20px;border:1px solid rgba(96,165,250,.2);background:rgba(96,165,250,.06)}
+.article-title{font-family:var(--serif);font-size:clamp(28px,5vw,44px);line-height:1.15;margin-bottom:16px}
+.article-info{font-size:14px;color:var(--text3);display:flex;gap:16px;flex-wrap:wrap}
+.article-body{margin-top:48px}
+.article-body p{font-size:17px;color:var(--text2);line-height:1.8;margin-bottom:24px}
+.article-body h2{font-family:var(--serif);font-size:clamp(24px,3.5vw,32px);line-height:1.25;margin:56px 0 20px;color:var(--text)}
+.article-body h3{font-family:var(--serif);font-size:clamp(20px,2.5vw,24px);line-height:1.3;margin:40px 0 16px;color:var(--text)}
+.article-body ul,.article-body ol{margin:0 0 24px 24px;color:var(--text2);font-size:17px;line-height:1.8}
+.article-body li{margin-bottom:8px}
+.article-body li strong{color:var(--text);font-weight:500}
+.article-body strong{color:var(--text);font-weight:500}
+.article-body em{font-style:italic}
+.article-body hr{border:none;height:1px;background:linear-gradient(90deg,transparent,rgba(245,245,247,.08),transparent);margin:48px 0}
+.article-body a{color:var(--blue2);text-decoration:underline;text-underline-offset:2px;transition:color .3s}
+.article-body a:hover{color:var(--blue3)}
+.article-body table{width:100%;border-collapse:collapse;margin:24px 0;font-size:15px}
+.article-body th,.article-body td{padding:12px 16px;text-align:left;border-bottom:1px solid rgba(245,245,247,.06);color:var(--text2)}
+.article-body th{color:var(--text);font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:.04em}
+.article-body code{background:rgba(59,130,246,.08);padding:2px 6px;border-radius:4px;font-size:15px;color:var(--blue2)}
+.article-body .checklist{list-style:none;margin-left:0;padding-left:0}
+.article-body .checklist li{padding-left:28px;position:relative}
+.article-body .checklist li::before{content:'✅';position:absolute;left:0;top:0}
+
+.article-bottom{margin-top:64px;padding-top:48px;border-top:1px solid rgba(245,245,247,.06)}
+.article-bottom-cta{text-align:center}
+.article-bottom-cta p{font-size:16px;color:var(--text2);margin-bottom:20px}
+.cta-btn{display:inline-block;padding:14px 36px;border-radius:60px;background:linear-gradient(135deg,var(--blue1),var(--blue2),var(--blue3));color:#0A0A0B;font-family:var(--sans);font-weight:600;font-size:16px;transition:transform .3s,box-shadow .3s}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(59,130,246,.3)}
+.follow-link{display:block;margin-top:20px;font-size:15px;color:var(--text3);transition:color .3s}
+.follow-link:hover{color:var(--text2)}
+
+footer{padding:80px 40px 40px;position:relative;z-index:2}
+.footer-inner{display:flex;flex-direction:column;align-items:center;gap:16px}
+.footer-nav,.footer-connect,.footer-legal,.footer-terms{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center}
+.footer-nav a,.footer-connect a,.footer-terms a{font-size:14px;color:var(--text3);letter-spacing:.02em;transition:color .3s}
+.footer-nav a:hover,.footer-connect a:hover,.footer-terms a:hover{color:var(--text2)}
+.footer-dot{color:var(--text3);font-size:14px;opacity:.5}
+.footer-legal{font-size:14px;color:var(--text3);letter-spacing:.02em;margin-top:8px}
+.footer-terms{margin-top:4px}
+.footer-terms a{font-size:12px;opacity:.6}
+.footer-terms a:hover{opacity:1}
+.prism-icon{display:inline-block;vertical-align:middle;flex-shrink:0}
+
+@media(max-width:767px){
+  nav{padding:14px 20px}
+  .article-wrapper{padding:100px 20px 60px}
+  .article-body table{font-size:13px;display:block;overflow-x:auto}
+  .article-body th,.article-body td{padding:8px 12px}
+  .orb{display:none}
+  .neural-bg{opacity:.3}.bokeh-layer{opacity:.25}.bokeh:nth-child(n+4){display:none}
+  .particles,.deco-lines{opacity:.4}
+  footer{padding:60px 24px 32px}.footer-inner{gap:12px}
+}
+@media(prefers-reduced-motion:reduce){.particle{animation:none!important}.neural-node,.data-dot{animation:none!important}.bokeh{animation:none!important}}
+</style>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<meta property="og:title" content="How We Built a Multi-Agent AI Team That Runs Real Business Operations | Aigenda">
+<meta property="og:description" content="A practical guide to building a multi-agent AI team that actually works in production. No demos, no theory — just what we did, why, and how you can do it too.">
+<meta property="og:url" content="https://aigenda.co.uk/posts/how-we-built-a-multi-agent-ai-team/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Aigenda">
+<meta property="og:image" content="https://aigenda.co.uk/og-default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@theaigenda">
+<meta name="twitter:title" content="How We Built a Multi-Agent AI Team That Runs Real Business Operations | Aigenda">
+<meta name="twitter:description" content="A practical guide to building a multi-agent AI team that actually works in production. No demos, no theory — just what we did, why, and how you can do it too.">
+<meta name="twitter:image" content="https://aigenda.co.uk/og-default.png">
+</head>
+<body>
+
+<div class="bokeh-layer">
+  <div class="bokeh" style="width:350px;height:350px;top:5%;left:8%;background:radial-gradient(circle,rgba(59,130,246,.10),rgba(59,130,246,.04) 40%,transparent 70%);animation:bokehDrift1 20s ease-in-out infinite"></div>
+  <div class="bokeh" style="width:250px;height:250px;top:20%;right:12%;background:radial-gradient(circle,rgba(96,165,250,.08),transparent 60%);animation:bokehDrift2 18s ease-in-out infinite"></div>
+  <div class="bokeh" style="width:300px;height:300px;top:50%;left:15%;background:radial-gradient(circle,rgba(147,197,253,.06),transparent 60%);animation:bokehDrift3 22s ease-in-out 3s infinite"></div>
+</div>
+
+<div class="neural-bg">
+<svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+  <line class="neural-line" x1="120" y1="180" x2="340" y2="290"/>
+  <line class="neural-line" x1="340" y1="290" x2="580" y2="150"/>
+  <line class="neural-line" x1="580" y1="150" x2="820" y2="380"/>
+  <line class="neural-line" x1="820" y1="380" x2="1050" y2="220"/>
+  <line class="neural-line" x1="1050" y1="220" x2="1300" y2="350"/>
+  <circle class="neural-node pulse1" cx="120" cy="180" r="4" opacity=".08"/>
+  <circle class="neural-node pulse2" cx="580" cy="150" r="5" opacity=".07"/>
+  <circle class="neural-node" cx="1050" cy="220" r="4" opacity=".07"/>
+  <circle class="data-dot" r="2" style="offset-path:path('M120,180 L340,290 L580,150 L820,380');animation:dataFlow1 15s linear infinite"/>
+</svg>
+</div>
+
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="particles" id="particles"></div>
+<div class="deco-lines">
+  <div class="deco-line" style="width:40%;top:25%;left:5%;transform:rotate(2deg)"></div>
+  <div class="deco-line-v" style="height:30%;top:10%;left:20%"></div>
+</div>
+
+<nav id="nav">
+  <button class="nav-toggle" aria-label="Menu">☰</button>
+  <a href="/" class="nav-logo" aria-label="Aigenda home">
+    <svg viewBox="0 0 32 32" width="32" height="32"><path d="M16 2L4 28h8l4-10V2z" fill="#60A5FA"/><path d="M16 2v16l4 10h8L16 2z" fill="#93C5FD"/></svg>
+  </a>
+  <a href="/services/" class="nav-cta">See how it works →</a>
+</nav>
+
+<article class="article-wrapper">
+  <a href="/blog/" class="back-link">← Back to blog</a>
+
+  <div class="article-meta">
+    <div class="article-tags">
+      <span class="article-tag">Architecture</span>
+      <span class="article-tag">Multi-Agent</span>
+      <span class="article-tag">How-To</span>
+    </div>
+    <h1 class="article-title">How We Built a Multi-Agent AI Team That Runs Real Business Operations</h1>
+    <div class="article-info">
+      <span>14 March 2026</span>
+      <span>·</span>
+      <span>12 min read</span>
+    </div>
+  </div>
+
+  <div class="article-body">
+    <p>Most AI setups look like this: one chatbot, one person typing prompts, one task at a time.</p>
+    <p>Ours looks like this: five specialist AI agents, each with their own expertise, workspace, and personality — coordinated by an orchestrator that keeps them honest, validates their work, and connects the dots between them.</p>
+    <p>It runs our data analytics, market intelligence, SEO strategy, design, and technical infrastructure. Every day. In production.</p>
+    <p>Here's how we built it — and how you can too.</p>
+
+    <hr>
+
+    <h2>The Problem We Were Solving</h2>
+    <p>We're a business where the leadership team wears too many hats, decisions get made on gut feel because nobody has time to pull the data, and competitive intelligence means occasionally checking a rival's website.</p>
+    <p>We didn't need another dashboard. We needed a team of analysts working around the clock — one we couldn't afford to hire.</p>
+
+    <hr>
+
+    <h2>The Architecture: Specialists, Not Generalists</h2>
+    <p>The single biggest decision we made was <strong>not</strong> building one super-agent that does everything. Instead, we built specialists.</p>
+
+    <h3>The Team</h3>
+    <table>
+      <thead>
+        <tr><th>Role</th><th>Focus</th><th>Why a Specialist?</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Data Analyst</strong></td><td>SQL queries, customer segmentation, LTV modelling, campaign analysis</td><td>Needs deep context on database schema, business metrics, and analytical methodology</td></tr>
+        <tr><td><strong>Market Intel</strong></td><td>Competitor monitoring, pricing intelligence, market trends</td><td>Needs scraping tools, web access, and a different analytical lens</td></tr>
+        <tr><td><strong>SEO Strategist</strong></td><td>Keyword research, content strategy, technical audits, search console analysis</td><td>Needs API access to Google Search Console, GA4, and SEO-specific frameworks</td></tr>
+        <tr><td><strong>Design Lead</strong></td><td>Dashboard UX, visual consistency, design systems</td><td>Needs a completely different skill set — visual thinking, not data crunching</td></tr>
+        <tr><td><strong>CTO</strong></td><td>Infrastructure, automation, code, technical architecture</td><td>Needs full coding capability and system access</td></tr>
+      </tbody>
+    </table>
+    <p>And sitting above them all:</p>
+    <table>
+      <thead>
+        <tr><th>Role</th><th>Focus</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Orchestrator (Chief of Staff)</strong></td><td>Delegation, quality control, synthesis, cross-agent pattern recognition</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Why This Works Better Than One Agent</h3>
+    <p>A single agent doing everything suffers from <strong>context dilution</strong>. Ask it to analyse your sales data, then write SEO content, then review a design — it loses the thread. Each task pollutes the context for the next.</p>
+    <p>Specialists stay focused. They build up deep context in their domain. The SEO strategist knows your keyword landscape intimately. The data analyst knows your database schema by heart. They get better at their job over time because their context stays clean.</p>
+
+    <hr>
+
+    <h2>Step-by-Step: How to Build Your Own</h2>
+
+    <h3>Step 1: Define Your Agents by Business Function</h3>
+    <p>Don't start with AI capabilities. Start with <strong>what your business actually needs</strong>.</p>
+    <p>Ask: <em>"If I could hire five analysts tomorrow, what would each one focus on?"</em></p>
+    <p>That's your agent roster. Ours mapped to the biggest gaps in our operation:</p>
+    <ul>
+      <li>We had data but nobody analysing it → <strong>Data Analyst</strong></li>
+      <li>We had competitors but no systematic monitoring → <strong>Market Intel</strong></li>
+      <li>We had websites but no SEO strategy → <strong>SEO Strategist</strong></li>
+      <li>We had dashboards but they looked terrible → <strong>Design Lead</strong></li>
+      <li>We had technical debt but no capacity → <strong>CTO</strong></li>
+    </ul>
+
+    <h3>Step 2: Give Each Agent a Clear Identity</h3>
+    <p>Each agent needs:</p>
+    <ul>
+      <li><strong>A name and role</strong> — sounds trivial, but it anchors their behaviour</li>
+      <li><strong>A detailed system prompt</strong> — what they do, how they think, what standards they uphold</li>
+      <li><strong>Their own workspace</strong> — a directory where they store their work, reference files, and context</li>
+      <li><strong>Defined boundaries</strong> — what they own, what they don't, when to escalate</li>
+    </ul>
+    <p>We wrote multi-page identity documents for each agent. Not because AI needs a novel, but because <strong>clarity of role prevents overlap and confusion</strong>.</p>
+
+    <h3>Step 3: Build the Orchestration Layer</h3>
+    <p>This is the critical piece most people skip. Without an orchestrator, you have five independent agents doing their own thing with no coordination.</p>
+    <p>Our orchestrator:</p>
+    <ul>
+      <li><strong>Delegates work</strong> to the right specialist based on the request</li>
+      <li><strong>Validates quality</strong> before anything reaches the human decision-maker</li>
+      <li><strong>Synthesises across agents</strong> — connecting data insights with market trends with SEO opportunities</li>
+      <li><strong>Manages priorities</strong> when multiple agents need the same resource</li>
+      <li><strong>Maintains memory</strong> — tracking decisions, patterns, and context over time</li>
+    </ul>
+    <p>The orchestrator doesn't do the work. It makes sure the work gets done well.</p>
+
+    <h3>Step 4: Connect Them to Real Data</h3>
+    <p>Agents without data access are just chatbots with opinions. Ours have:</p>
+    <ul>
+      <li><strong>Database access</strong> (read-only) — direct SQL queries against our data warehouse</li>
+      <li><strong>API integrations</strong> — Google Search Console, GA4, CRM</li>
+      <li><strong>Web access</strong> — for research, competitor monitoring, trend analysis</li>
+      <li><strong>File system access</strong> — reading and writing reports, data files, scripts</li>
+    </ul>
+    <p>The rule: <strong>read access is generous, write access is restricted</strong>. Agents can query anything but can't modify production data without approval.</p>
+
+    <h3>Step 5: Establish Quality Control</h3>
+    <p>This is where most AI implementations fail. The output looks plausible, so people trust it. But plausible isn't the same as correct.</p>
+    <p>Our quality framework:</p>
+    <ul class="checklist">
+      <li><strong>Data quality</strong> — checked for duplicates, outliers, errors?</li>
+      <li><strong>Methodology</strong> — is the analytical approach sound?</li>
+      <li><strong>Assumptions stated</strong> — what could invalidate the conclusion?</li>
+      <li><strong>Completeness</strong> — any gaps?</li>
+      <li><strong>Actionability</strong> — does this lead to a clear decision or action?</li>
+    </ul>
+    <p>If an agent's work doesn't pass validation, it gets sent back with specific feedback. They learn. The quality ratchets up over time.</p>
+
+    <h3>Step 6: Start Small, Expand Gradually</h3>
+    <p>We didn't launch with five agents on day one. We started with one (data analytics), proved it worked, then added more as we understood the patterns.</p>
+    <p><strong>Suggested order:</strong></p>
+    <ol>
+      <li>Start with your highest-value data problem → first specialist agent</li>
+      <li>Add an orchestrator once you have 2+ agents</li>
+      <li>Expand to adjacent domains as confidence grows</li>
+      <li>Add cross-agent workflows last (they're the most complex but also the most valuable)</li>
+    </ol>
+
+    <hr>
+
+    <h2>What We Learned the Hard Way</h2>
+    <p><strong>1. Identity documents matter more than you think.</strong> Vague prompts produce vague work. The more specific you are about what an agent does (and doesn't do), the better the output.</p>
+    <p><strong>2. The orchestrator is the hardest role to get right.</strong> It's not just routing — it's quality control, synthesis, and strategic thinking. Get this wrong and you have five agents producing noise.</p>
+    <p><strong>3. Memory is a superpower.</strong> Agents that remember yesterday's work, last week's decisions, and long-term trends are dramatically more useful than stateless ones. Invest in a memory system early.</p>
+    <p><strong>4. Validation catches real errors.</strong> We've caught flawed methodology, unrealistic projections, and data quality issues that would have led to bad decisions. Trust but verify.</p>
+    <p><strong>5. Cross-agent synthesis is where the magic happens.</strong> One agent's output is data. Three agents' outputs converging on the same signal is an insight. The orchestrator's job is to spot these patterns.</p>
+
+    <hr>
+
+    <h2>The Results So Far</h2>
+    <p>We've been running this setup for several weeks. In that time, the team has:</p>
+    <ul>
+      <li>Completed a full customer lifetime value analysis across tens of thousands of customers</li>
+      <li>Validated customer personas using free public data (saving thousands on commercial alternatives)</li>
+      <li>Identified unanswered sales quotes worth real revenue walking out the door</li>
+      <li>Launched targeted re-engagement campaigns with proper control groups</li>
+      <li>Connected to our CRM and started analysing support ticket patterns</li>
+      <li>Built comprehensive dashboards for every workstream</li>
+    </ul>
+    <p>All without hiring a single additional person.</p>
+
+    <hr>
+
+    <h2>Getting Started</h2>
+    <p>You don't need our exact setup. The principles transfer:</p>
+    <ol>
+      <li><strong>Think in specialists, not generalists</strong></li>
+      <li><strong>Invest in orchestration and quality control</strong></li>
+      <li><strong>Connect to real data, not just conversation</strong></li>
+      <li><strong>Start with one agent and your biggest problem</strong></li>
+      <li><strong>Build memory and context over time</strong></li>
+    </ol>
+    <p>The barrier to entry is lower than you think. The hard part isn't the technology — it's the clarity of thinking about what your business actually needs.</p>
+  </div>
+
+  <div class="article-bottom">
+    <div class="article-bottom-cta">
+      <p>Want help building your own multi-agent AI team?</p>
+      <a href="/contact/" class="cta-btn">Book your free call →</a>
+      <a href="https://x.com/theaigenda" target="_blank" rel="noopener" class="follow-link">Follow @theaigenda for shorter takes and updates →</a>
+    </div>
+  </div>
+</article>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-nav">
+      <a href="/services/">Services</a>
+      <span class="footer-dot">·</span>
+      <a href="/about/">About</a>
+      <span class="footer-dot">·</span>
+      <a href="/blog/">Blog</a>
+      <span class="footer-dot">·</span>
+      <a href="/contact/">Contact</a>
+    </div>
+    <div class="footer-connect">
+      <a href="mailto:hello@aigenda.co.uk">hello@aigenda.co.uk</a>
+      <span class="footer-dot">·</span>
+      <a href="https://x.com/theaigenda" target="_blank" rel="noopener">@theaigenda</a>
+    </div>
+    <div class="footer-legal">
+      <span class="prism-icon"><svg viewBox="0 0 32 32" width="16" height="16"><path d="M16 2L4 28h8l4-10V2z" fill="#60A5FA"/><path d="M16 2v16l4 10h8L16 2z" fill="#93C5FD"/></svg></span>
+      Aigenda · Warrington, UK · © 2026
+    </div>
+    <div class="footer-terms">
+      <a href="/privacy/">Privacy</a>
+      <span class="footer-dot">·</span>
+      <a href="/terms/">Terms</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){const c=document.getElementById('particles');const n=window.innerWidth<768?8:20;for(let i=0;i<n;i++){const p=document.createElement('div');p.className='particle';p.style.left=Math.random()*100+'%';p.style.top=Math.random()*100+'%';p.style.width=(Math.random()*1.5+0.5)+'px';p.style.height=p.style.width;p.style.animation=`floatUp ${Math.random()*20+15}s linear ${Math.random()*10}s infinite`;c.appendChild(p);}})();
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>80);},{passive:true});
+(function(){var nav=document.getElementById("nav"),lastY=0,ticking=false;window.addEventListener("scroll",function(){if(!ticking){requestAnimationFrame(function(){var y=window.scrollY;if(y>80&&y>lastY){nav.classList.add("nav-hidden")}else{nav.classList.remove("nav-hidden")}lastY=y;ticking=false;});ticking=true;}},{passive:true});})();
+(function(){var tog=document.querySelector(".nav-toggle");if(!tog)return;var ov=document.createElement("div");ov.className="nav-mobile-overlay";ov.innerHTML='<button class="mobile-close" aria-label="Close menu">✕</button><a href="/">Home</a><a href="/services/">Services</a><a href="/about/">About</a><a href="/blog/">Blog</a><a href="/contact/">Contact</a>';document.body.appendChild(ov);tog.addEventListener("click",function(){ov.classList.add("open")});ov.querySelector(".mobile-close").addEventListener("click",function(){ov.classList.remove("open")});ov.querySelectorAll("a").forEach(function(a){a.addEventListener("click",function(){ov.classList.remove("open")})});})();
+</script>
+</body>
+</html>

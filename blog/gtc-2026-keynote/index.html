@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NVIDIA GTC 2026 Keynote: Key Takeaways & What Comes Next | Aigenda Blog</title>
+<meta name="description" content="Jensen Huang just announced $1 trillion in AI chip orders and called OpenClaw 'the new computer.' Here's what it means for anyone running AI in production.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital,wght@0,400;1,400&family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0A0A0B;--text:#F5F5F7;--text2:#A1A1A6;--text3:#6E6E73;--blue1:#3B82F6;--blue2:#60A5FA;--blue3:#93C5FD;--serif:'DM Serif Display',Georgia,serif;--sans:'Inter',system-ui,sans-serif;--max:1200px}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden;position:relative}
+body::before{content:'';position:fixed;inset:0;z-index:-2;background:
+  radial-gradient(ellipse 80% 60% at 20% 10%, rgba(15,23,42,.9) 0%, transparent 60%),
+  radial-gradient(ellipse 70% 50% at 80% 20%, rgba(17,24,50,.7) 0%, transparent 55%),
+  radial-gradient(ellipse 60% 70% at 10% 60%, rgba(12,20,45,.6) 0%, transparent 50%),
+  radial-gradient(ellipse 90% 50% at 70% 80%, rgba(20,15,40,.5) 0%, transparent 55%),
+  radial-gradient(ellipse 50% 40% at 50% 40%, rgba(10,30,55,.4) 0%, transparent 50%),
+  radial-gradient(ellipse 80% 60% at 90% 50%, rgba(18,12,35,.3) 0%, transparent 50%),
+  linear-gradient(180deg, #080B15 0%, #0A0A0B 40%, #0B0A10 70%, #080B15 100%);pointer-events:none}
+body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.035;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");background-size:256px 256px}
+a{color:inherit;text-decoration:none}
+.gradient-text{background:linear-gradient(135deg,var(--blue1),var(--blue2),var(--blue3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.bokeh-layer{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.bokeh{position:absolute;border-radius:50%;pointer-events:none}
+@keyframes bokehDrift1{0%,100%{transform:translate(0,0)}25%{transform:translate(15px,-10px)}50%{transform:translate(-8px,20px)}75%{transform:translate(20px,8px)}}
+@keyframes bokehDrift2{0%,100%{transform:translate(0,0)}25%{transform:translate(-12px,15px)}50%{transform:translate(18px,-8px)}75%{transform:translate(-5px,-18px)}}
+@keyframes bokehDrift3{0%,100%{transform:translate(0,0)}33%{transform:translate(10px,15px)}66%{transform:translate(-15px,-10px)}}
+.neural-bg{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.neural-bg svg{width:100%;height:100%}
+@keyframes nodePulse1{0%,100%{opacity:.08}50%{opacity:.15}}
+@keyframes nodePulse2{0%,100%{opacity:.10}50%{opacity:.18}}
+@keyframes dataFlow1{0%{offset-distance:0%}100%{offset-distance:100%}}
+.neural-node{fill:#60A5FA;opacity:.35}
+.neural-line{stroke:rgba(96,165,250,.18);stroke-width:.5;fill:none}
+.neural-node.pulse1{animation:nodePulse1 3s ease-in-out infinite}
+.neural-node.pulse2{animation:nodePulse2 4s ease-in-out 1s infinite}
+.data-dot{fill:#93C5FD;opacity:.5}
+.particles{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.particle{position:absolute;width:2px;height:2px;background:var(--text);border-radius:50%;opacity:.06}
+@keyframes floatUp{0%{transform:translateY(0) translateX(0);opacity:.06}50%{opacity:.07}100%{transform:translateY(-100vh) translateX(30px);opacity:0}}
+.orb{position:fixed;border-radius:50%;pointer-events:none;z-index:0;filter:blur(80px)}
+.orb-1{width:500px;height:500px;background:radial-gradient(circle,rgba(59,130,246,.04),transparent 70%);top:10%;left:-10%}
+.orb-2{width:400px;height:400px;background:radial-gradient(circle,rgba(96,165,250,.03),transparent 70%);top:50%;right:-8%}
+.deco-lines{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.deco-line{position:absolute;background:linear-gradient(90deg,transparent,rgba(245,245,247,.04),transparent);height:0.5px}
+.deco-line-v{position:absolute;background:linear-gradient(180deg,transparent,rgba(245,245,247,.03),transparent);width:0.5px}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:24px 40px;display:flex;justify-content:space-between;align-items:center;transition:background .4s,transform .3s ease}
+nav.scrolled{background:rgba(10,10,11,.85);backdrop-filter:blur(12px)}
+nav.nav-hidden{transform:translateY(-100%)}
+nav .nav-logo{position:absolute;left:50%;transform:translateX(-50%)}
+.nav-cta{opacity:0;transform:translateY(-8px);transition:opacity .4s,transform .4s;font-size:14px;font-weight:500;letter-spacing:.02em;color:var(--text2)}
+.nav-cta:hover{color:var(--text)}
+nav.scrolled .nav-cta{opacity:1;transform:translateY(0)}
+.nav-toggle{display:block;background:none;border:none;color:var(--text);font-size:24px;cursor:pointer;padding:8px}
+.nav-mobile-overlay{display:none;position:fixed;inset:0;z-index:99;background:rgba(10,10,11,.95);backdrop-filter:blur(16px);flex-direction:column;align-items:center;justify-content:center;gap:32px}
+.nav-mobile-overlay.open{display:flex}
+.nav-mobile-overlay a{font-size:24px;font-weight:500;color:var(--text);letter-spacing:.02em;transition:color .3s}
+.nav-mobile-overlay a:hover{color:var(--blue2)}
+.nav-mobile-overlay .mobile-close{position:absolute;top:24px;right:24px;background:none;border:none;color:var(--text);font-size:28px;cursor:pointer;padding:8px}
+@media(max-width:767px){.nav-cta{display:none}}
+
+.article-wrapper{position:relative;z-index:2;max-width:720px;margin:0 auto;padding:160px 40px 80px}
+.back-link{display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--text3);margin-bottom:48px;transition:color .3s}
+.back-link:hover{color:var(--text2)}
+.article-meta{margin-bottom:32px}
+.article-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.article-tag{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--blue2);padding:4px 12px;border-radius:20px;border:1px solid rgba(96,165,250,.2);background:rgba(96,165,250,.06)}
+.article-title{font-family:var(--serif);font-size:clamp(28px,5vw,44px);line-height:1.15;margin-bottom:16px}
+.article-info{font-size:14px;color:var(--text3);display:flex;gap:16px;flex-wrap:wrap}
+.article-body{margin-top:48px}
+.article-body p{font-size:17px;color:var(--text2);line-height:1.8;margin-bottom:24px}
+.article-body h2{font-family:var(--serif);font-size:clamp(24px,3.5vw,32px);line-height:1.25;margin:56px 0 20px;color:var(--text)}
+.article-body h3{font-family:var(--serif);font-size:clamp(20px,2.5vw,24px);line-height:1.3;margin:40px 0 16px;color:var(--text)}
+.article-body ul,.article-body ol{margin:0 0 24px 24px;color:var(--text2);font-size:17px;line-height:1.8}
+.article-body li{margin-bottom:8px}
+.article-body li strong{color:var(--text);font-weight:500}
+.article-body strong{color:var(--text);font-weight:500}
+.article-body em{font-style:italic}
+.article-body hr{border:none;height:1px;background:linear-gradient(90deg,transparent,rgba(245,245,247,.08),transparent);margin:48px 0}
+.article-body a{color:var(--blue2);text-decoration:underline;text-underline-offset:2px;transition:color .3s}
+.article-body a:hover{color:var(--blue3)}
+
+.article-bottom{margin-top:64px;padding-top:48px;border-top:1px solid rgba(245,245,247,.06)}
+.article-bottom-cta{text-align:center}
+.article-bottom-cta p{font-size:16px;color:var(--text2);margin-bottom:20px}
+.cta-btn{display:inline-block;padding:14px 36px;border-radius:60px;background:linear-gradient(135deg,var(--blue1),var(--blue2),var(--blue3));color:#0A0A0B;font-family:var(--sans);font-weight:600;font-size:16px;transition:transform .3s,box-shadow .3s}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(59,130,246,.3)}
+.follow-link{display:block;margin-top:20px;font-size:15px;color:var(--text3);transition:color .3s}
+.follow-link:hover{color:var(--text2)}
+
+footer{padding:80px 40px 40px;position:relative;z-index:2}
+.footer-inner{display:flex;flex-direction:column;align-items:center;gap:16px}
+.footer-nav,.footer-connect,.footer-legal,.footer-terms{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center}
+.footer-nav a,.footer-connect a,.footer-terms a{font-size:14px;color:var(--text3);letter-spacing:.02em;transition:color .3s}
+.footer-nav a:hover,.footer-connect a:hover,.footer-terms a:hover{color:var(--text2)}
+.footer-dot{color:var(--text3);font-size:14px;opacity:.5}
+.footer-legal{font-size:14px;color:var(--text3);letter-spacing:.02em;margin-top:8px}
+.footer-terms{margin-top:4px}
+.footer-terms a{font-size:12px;opacity:.6}
+.footer-terms a:hover{opacity:1}
+.prism-icon{display:inline-block;vertical-align:middle;flex-shrink:0}
+
+@media(max-width:767px){
+  nav{padding:14px 20px}
+  .article-wrapper{padding:100px 20px 60px}
+  .orb{display:none}
+  .neural-bg{opacity:.3}.bokeh-layer{opacity:.25}.bokeh:nth-child(n+4){display:none}
+  .particles,.deco-lines{opacity:.4}
+  footer{padding:60px 24px 32px}.footer-inner{gap:12px}
+}
+@media(prefers-reduced-motion:reduce){.particle{animation:none!important}.neural-node,.data-dot{animation:none!important}.bokeh{animation:none!important}}
+</style>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<meta property="og:title" content="NVIDIA GTC 2026 Keynote: Key Takeaways & What Comes Next | Aigenda">
+<meta property="og:description" content="Jensen Huang just announced $1 trillion in AI chip orders and called OpenClaw 'the new computer.' Here's what it means for anyone running AI in production.">
+<meta property="og:url" content="https://aigenda.co.uk/posts/gtc-2026-keynote/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Aigenda">
+<meta property="og:image" content="https://aigenda.co.uk/og-default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@theaigenda">
+<meta name="twitter:title" content="NVIDIA GTC 2026 Keynote: Key Takeaways & What Comes Next | Aigenda">
+<meta name="twitter:description" content="Jensen Huang just announced $1 trillion in AI chip orders and called OpenClaw 'the new computer.' Here's what it means for anyone running AI in production.">
+<meta name="twitter:image" content="https://aigenda.co.uk/og-default.png">
+</head>
+<body>
+
+<div class="bokeh-layer">
+  <div class="bokeh" style="width:350px;height:350px;top:5%;left:8%;background:radial-gradient(circle,rgba(59,130,246,.10),rgba(59,130,246,.04) 40%,transparent 70%);animation:bokehDrift1 20s ease-in-out infinite"></div>
+  <div class="bokeh" style="width:250px;height:250px;top:20%;right:12%;background:radial-gradient(circle,rgba(96,165,250,.08),transparent 60%);animation:bokehDrift2 18s ease-in-out infinite"></div>
+  <div class="bokeh" style="width:300px;height:300px;top:50%;left:15%;background:radial-gradient(circle,rgba(147,197,253,.06),transparent 60%);animation:bokehDrift3 22s ease-in-out 3s infinite"></div>
+</div>
+
+<div class="neural-bg">
+<svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+  <line class="neural-line" x1="120" y1="180" x2="340" y2="290"/>
+  <line class="neural-line" x1="340" y1="290" x2="580" y2="150"/>
+  <line class="neural-line" x1="580" y1="150" x2="820" y2="380"/>
+  <line class="neural-line" x1="820" y1="380" x2="1050" y2="220"/>
+  <circle class="neural-node pulse1" cx="120" cy="180" r="4" opacity=".08"/>
+  <circle class="neural-node pulse2" cx="580" cy="150" r="5" opacity=".07"/>
+  <circle class="neural-node" cx="1050" cy="220" r="4" opacity=".07"/>
+  <circle class="data-dot" r="2" style="offset-path:path('M120,180 L340,290 L580,150 L820,380');animation:dataFlow1 15s linear infinite"/>
+</svg>
+</div>
+
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="particles" id="particles"></div>
+<div class="deco-lines">
+  <div class="deco-line" style="width:40%;top:25%;left:5%;transform:rotate(2deg)"></div>
+  <div class="deco-line-v" style="height:30%;top:10%;left:20%"></div>
+</div>
+
+<nav id="nav">
+  <button class="nav-toggle" aria-label="Menu">☰</button>
+  <a href="/" class="nav-logo" aria-label="Aigenda home">
+    <svg viewBox="0 0 32 32" width="32" height="32"><path d="M16 2L4 28h8l4-10V2z" fill="#60A5FA"/><path d="M16 2v16l4 10h8L16 2z" fill="#93C5FD"/></svg>
+  </a>
+  <a href="/services/" class="nav-cta">See how it works →</a>
+</nav>
+
+<article class="article-wrapper">
+  <a href="/blog/" class="back-link">← Back to blog</a>
+
+  <div class="article-meta">
+    <div class="article-tags">
+      <span class="article-tag">NVIDIA</span>
+      <span class="article-tag">GTC</span>
+      <span class="article-tag">AI Infrastructure</span>
+    </div>
+    <h1 class="article-title">NVIDIA GTC 2026 Keynote: Key Takeaways & What Comes Next</h1>
+    <div class="article-info">
+      <span>16 March 2026</span>
+      <span>·</span>
+      <span>10 min read</span>
+    </div>
+  </div>
+
+  <div class="article-body">
+    <p>If you run AI agents in production — or you're thinking about it — today's GTC 2026 keynote wasn't just another product launch. It was a roadmap for what compute infrastructure looks like when inference costs approach zero and tokens become the next commodity.</p>
+    <p>Jensen Huang stood on stage in San Jose and announced <strong>$1 trillion in purchase orders</strong> for NVIDIA's Blackwell and Vera Rubin chips through 2027. That's double last year's $500 billion. NVIDIA's market cap now sits at roughly <strong>$4.5 trillion</strong>. For context, that's larger than the entire GDP of Germany.</p>
+    <p>But the number that matters more? <strong>350x token generation leap</strong> with Vera Rubin. And the phrase Jensen kept repeating: <strong>"Every single technology company now has to think, 'what's your OpenClaw strategy?'"</strong></p>
+    <p>We run a multi-agent AI team in production. We've watched inference costs drop, capabilities explode, and the architecture of useful AI shift from monolithic models to orchestrated agents. Today's announcements aren't just faster chips — they're structural shifts in what becomes possible and what becomes economically inevitable.</p>
+    <p>Here's what actually matters from the keynote, grouped by implication rather than product name. Plus some spicy predictions about what comes next.</p>
+    <p><em>Sources: <a href="https://www.cnbc.com" target="_blank" rel="noopener">CNBC live coverage</a>, <a href="https://www.techradar.com" target="_blank" rel="noopener">TechRadar live blog</a></em></p>
+
+    <hr>
+
+    <h2>The Compute Arms Race: When Hardware Defines What's Possible</h2>
+
+    <h3>Vera Rubin Ships Q3 2026</h3>
+    <p>The headline chip is <strong>Vera Rubin</strong>: 1.3 million components, <strong>10x performance per watt</strong> versus Grace Blackwell, and that <strong>350x token generation leap</strong>. Microsoft is the first cloud provider to validate the NVL72 configuration.</p>
+    <p>What does this actually mean? If you're running multi-agent systems today, you're bottlenecked by inference speed and cost. Agents don't just need to be smart — they need to be <em>fast</em> and <em>cheap enough to run continuously</em>. Vera Rubin doesn't just make tokens faster; it makes entire categories of agent architecture economically viable that weren't before.</p>
+    <p>We've built agents that analyse customer data, scrape competitor pricing, audit SEO performance, and synthesise strategic insights. The constraint isn't "can the model do this?" — it's "can we afford to run this every hour?" Vera Rubin shifts that calculus hard.</p>
+
+    <h3>The Groq Wildcard</h3>
+    <p>In December 2025, NVIDIA acquired Groq for <strong>$20 billion</strong>. Today we saw why: the <strong>Groq 3 LPU</strong> (Language Processing Unit), delivering a <strong>35x tokens-per-watt improvement</strong> over traditional GPUs.</p>
+    <p>Jensen's framing: <em>"We united two processors of extreme differences — one for high throughput, one for low latency."</em></p>
+    <p>Translation: GPUs excel at training and batch inference (high throughput). LPUs excel at real-time, single-request inference (low latency). The <strong>Groq 3 LPX rack</strong> holds 256 LPUs alongside Vera Rubin GPUs in a unified architecture.</p>
+    <p><strong>The strategic bet:</strong> NVIDIA is hedging against a world where inference architecture fragments. If latency-critical applications (think voice agents, real-time trading, autonomous systems) demand LPU-style chips, NVIDIA wants to own both sides of the market.</p>
+    <p><strong>The risk:</strong> Does this fragment the ecosystem? Will developers optimise for GPU or LPU? Or does NVIDIA's orchestration layer abstract it away?</p>
+
+    <h3>The Roadmap: Kyber (2027) and Feynman (2028)</h3>
+    <ul>
+      <li><strong>Kyber</strong>: Next-generation rack prototype shipping in 2027 with Vera Rubin Ultra. 144 GPUs in vertical compute trays for higher density and lower latency.</li>
+      <li><strong>Feynman (2028)</strong>: New GPU, new LPU, new CPU architecture called <strong>"Rosa"</strong>, Bluefield 5 networking, Kyber racks with copper interconnects and co-packaged optics (CPO) at scale.</li>
+    </ul>
+    <p>Jensen also announced a <strong>$4 billion investment in photonics</strong> for next-gen AI chips. This isn't incremental — it's re-architecting how data moves inside compute clusters.</p>
+
+    <h3>What It Means</h3>
+    <p>The compute arms race isn't slowing down. It's accelerating. If you're planning AI infrastructure for 2027-2028, assume:</p>
+    <ol>
+      <li><strong>Inference costs drop by another order of magnitude</strong></li>
+      <li><strong>Latency improvements unlock real-time agent interactions</strong></li>
+      <li><strong>Architecture choice matters</strong> (GPU vs LPU vs hybrid)</li>
+    </ol>
+
+    <hr>
+
+    <h2>The Software Stack Shift: When NVIDIA Wants to Own the Agent Layer</h2>
+
+    <h3>NemoClaw: NVIDIA's Bid for the Orchestration Layer</h3>
+    <p>The most strategically interesting announcement wasn't a chip. It was <strong>NemoClaw</strong> — NVIDIA's enterprise-ready reference stack for OpenClaw.</p>
+    <p>For context: OpenClaw is an open-source agentic framework created by Austrian developer Peter Steinberger, launched in January 2026. Steinberger joined OpenAI shortly after, and Sam Altman said OpenClaw would "live in a foundation as an open source project."</p>
+    <p>Jensen's line: <em>"Every single technology company now has to think, 'what's your OpenClaw strategy?'"</em> He called OpenClaw <strong>"the new computer."</strong></p>
+    <p><strong>Why this matters:</strong> NVIDIA has historically been a hardware company that enables software ecosystems. NemoClaw is a play to <em>own</em> the software layer for enterprise AI orchestration. If enterprises adopt NemoClaw as the de facto standard for deploying multi-agent systems, NVIDIA isn't just selling chips — they're selling the entire stack.</p>
+    <p><strong>The question:</strong> Does NemoClaw become the Rails of AI orchestration? Or does it fragment into competing stacks (Anthropic's tooling, OpenAI's agents API, open-source alternatives)?</p>
+    <p>We're watching this closely. Our multi-agent setup is built on custom orchestration, but if NemoClaw offers batteries-included deployment, monitoring, and scaling, the switching cost might be worth it.</p>
+
+    <h3>Tokens as the Next Commodity</h3>
+    <p>Jensen described <strong>tokens as "the next commodity."</strong> NVIDIA's internal modelling suggests Vera Rubin NVL72 configurations could unlock a <strong>$150 billion revenue opportunity</strong> for cloud providers.</p>
+    <p>His framing: <em>"If they could just get more capacity, they could generate more tokens, their revenues would go up."</em></p>
+    <p><strong>Translation:</strong> We're moving from a world where AI is a feature to a world where <em>token generation is infrastructure</em>. Cloud providers will sell tokens the way they sell compute hours today. Enterprises will buy token capacity the way they buy bandwidth.</p>
+    <p><strong>Implication:</strong> If tokens become commoditised, the moat shifts to <em>orchestration quality</em>. The agent that asks the right question, filters the right context, and routes to the right model wins — not the one with the biggest context window.</p>
+    <p>This aligns with what we've seen in production. The breakthroughs aren't from using the newest model; they're from better task decomposition, clearer instructions, and validation workflows that catch errors before they compound.</p>
+
+    <hr>
+
+    <h2>Physical AI: When Bits Meet Atoms</h2>
+
+    <h3>Autonomous Driving's "ChatGPT Moment"</h3>
+    <p>Jensen claimed: <em>"The ChatGPT moment for autonomous driving is here."</em></p>
+    <p>The Uber partnership is the proof point: <strong>autonomous vehicle fleets across 28 cities, 4 continents by 2028</strong>. New OEM partners include Nissan, BYD, Geely, Isuzu, and Hyundai, all on NVIDIA's <strong>Drive Hyperion</strong> platform.</p>
+    <p><strong>The sceptical take:</strong> Autonomous driving has been "two years away" for a decade. 28 cities by 2028 is ambitious. Regulatory approval, edge cases, public trust — all unsolved.</p>
+    <p><strong>The optimistic take:</strong> If Vera Rubin truly delivers 350x token generation improvements, real-time sensor fusion and decision-making become tractable in ways they weren't before. The "ChatGPT moment" isn't about sentiment — it's about economic viability. When the cost per mile drops below human drivers <em>and</em> the safety record improves, adoption accelerates fast.</p>
+
+    <h3>Robotics and Space-1</h3>
+    <ul>
+      <li><strong>Disney partnership continues:</strong> Olaf robot demo on stage. NVIDIA's Omniverse and Isaac platforms remain the backbone of physical AI simulation.</li>
+      <li><strong>Space-1:</strong> A Vera Rubin variant designed for orbital data centres. Yes, you read that correctly. NVIDIA is building chips for space-based compute infrastructure.</li>
+    </ul>
+    <p><strong>Why space?</strong> Latency for earth-based applications, energy access (solar), cooling (vacuum), and future lunar/Mars infrastructure. It sounds like science fiction, but if you're planning compute infrastructure for 2030+, you need off-planet options.</p>
+
+    <hr>
+
+    <h2>What Jensen Didn't Say (And Why It Matters)</h2>
+
+    <h3>No Mention of Model Training Costs</h3>
+    <p>Every announcement focused on <em>inference</em> — generating tokens, deploying agents, running real-time systems. Nothing about training efficiency or reducing the cost of pre-training foundation models.</p>
+    <p><strong>Read:</strong> The battlefield has shifted. Training foundation models is table stakes. The differentiation is in <em>what you do with them</em>.</p>
+
+    <h3>No OpenAI Partnership (But OpenClaw Got a Shout-Out)</h3>
+    <p>Jensen praised OpenClaw extensively but didn't mention OpenAI's models, GPT-5 rumours, or deeper collaboration. Microsoft (OpenAI's key partner) was named as the first Vera Rubin cloud validator, but OpenAI wasn't on stage.</p>
+    <p><strong>Read:</strong> NVIDIA is model-agnostic and wants to stay that way. NemoClaw supports any model provider. NVIDIA's bet is on infrastructure, not a specific model vendor.</p>
+
+    <h3>No Consumer Announcements</h3>
+    <p><strong>DLSS 5</strong> (next-gen upscaling) got a brief mention, but no new consumer product details, no pricing, no availability.</p>
+    <p><strong>Read:</strong> The consumer market is now a footnote in NVIDIA's strategy. The real money is enterprise AI infrastructure.</p>
+
+    <hr>
+
+    <h2>What Comes Next: Five Spicy Predictions</h2>
+
+    <h3>1. Inference Costs Approach Zero, Orchestration Becomes the Moat</h3>
+    <p>If Vera Rubin delivers 350x token generation improvements and Groq 3 delivers 35x efficiency gains, inference pricing will collapse <em>again</em> in the next 18 months.</p>
+    <p><strong>What happens:</strong> Running an AI agent 24/7 becomes cheaper than a Netflix subscription. The constraint shifts from "can we afford this?" to "do we trust the output quality?"</p>
+    <p><strong>Implication:</strong> Quality assurance, validation workflows, and adversarial testing become the bottleneck. The companies that solve "how do we catch agent hallucinations before they cause damage?" will win.</p>
+
+    <h3>2. NemoClaw Fragments the Market (Or Unifies It — No Middle Ground)</h3>
+    <p>Either NemoClaw becomes the Rails/Kubernetes of AI orchestration (every enterprise uses it), or it fragments into competing stacks and we get a messy standards war.</p>
+    <p><strong>Our guess:</strong> It unifies, but only if it stays open-source and doesn't become NVIDIA-hardware-only. The moment it favours Vera Rubin over AMD or custom ASICs, the community forks.</p>
+
+    <h3>3. Autonomous Driving Hits 15 Cities by 2028 (Not 28)</h3>
+    <p>We're optimistic about AV progress, but 28 cities across 4 continents in two years? Regulatory approval alone will bottleneck that.</p>
+    <p><strong>More realistic:</strong> 15 cities in controlled geofenced zones, mostly in China and select US metros. Full autonomy in dense urban cores (London, Tokyo, NYC) is still 2030+.</p>
+
+    <h3>4. The Groq Acquisition Was Defensive, Not Offensive</h3>
+    <p>NVIDIA didn't buy Groq because LPUs are better than GPUs. They bought Groq to prevent a competitor (Google, Amazon, Microsoft) from owning the low-latency inference layer and fragmenting the market.</p>
+    <p><strong>What to watch:</strong> Does the LPU architecture gain independent traction, or does it get absorbed into NVIDIA's GPU roadmap as a niche accelerator?</p>
+
+    <h3>5. "What's Your OpenClaw Strategy?" Becomes the New "What's Your Cloud Strategy?"</h3>
+    <p>In 2010, every board asked, "What's your cloud strategy?" By 2015, not having one was existential.</p>
+    <p>In 2026, Jensen asked, "What's your OpenClaw strategy?" By 2028, enterprises without a multi-agent orchestration plan will be competitively disadvantaged.</p>
+    <p><strong>Why:</strong> When your competitors can deploy AI agents that analyse data, respond to customers, and optimise operations 24/7 at near-zero marginal cost, you can't compete with human-only workflows.</p>
+
+    <hr>
+
+    <h2>The Bottom Line</h2>
+    <p>Today's GTC wasn't just a product launch. It was a declaration that AI infrastructure is entering a new phase:</p>
+    <ol>
+      <li><strong>Inference costs are collapsing</strong> (again)</li>
+      <li><strong>Orchestration quality becomes the moat</strong> (not raw model size)</li>
+      <li><strong>Physical AI is moving from pilots to production</strong> (autonomous driving, robotics)</li>
+      <li><strong>NVIDIA wants to own the full stack</strong> (NemoClaw is the tell)</li>
+    </ol>
+    <p>If you're running AI in production, here's what to do:</p>
+    <ul>
+      <li><strong>Re-evaluate your inference costs</strong> — the economics just shifted</li>
+      <li><strong>Invest in orchestration quality</strong> — validation, error handling, context management</li>
+      <li><strong>Watch the NemoClaw ecosystem</strong> — if it gains traction, it might be worth the migration</li>
+      <li><strong>Plan for agent-first workflows</strong> — the competitive advantage is speed to deployment, not model access</li>
+    </ul>
+    <p>And if you're still treating AI as a "nice-to-have" rather than infrastructure? Your competitors aren't.</p>
+  </div>
+
+  <div class="article-bottom">
+    <div class="article-bottom-cta">
+      <p>Want to talk AI infrastructure strategy for your business?</p>
+      <a href="/contact/" class="cta-btn">Book your free call →</a>
+      <a href="https://x.com/theaigenda" target="_blank" rel="noopener" class="follow-link">Follow @theaigenda for daily AI signal →</a>
+    </div>
+  </div>
+</article>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-nav">
+      <a href="/services/">Services</a>
+      <span class="footer-dot">·</span>
+      <a href="/about/">About</a>
+      <span class="footer-dot">·</span>
+      <a href="/blog/">Blog</a>
+      <span class="footer-dot">·</span>
+      <a href="/contact/">Contact</a>
+    </div>
+    <div class="footer-connect">
+      <a href="mailto:hello@aigenda.co.uk">hello@aigenda.co.uk</a>
+      <span class="footer-dot">·</span>
+      <a href="https://x.com/theaigenda" target="_blank" rel="noopener">@theaigenda</a>
+    </div>
+    <div class="footer-legal">
+      <span class="prism-icon"><svg viewBox="0 0 32 32" width="16" height="16"><path d="M16 2L4 28h8l4-10V2z" fill="#60A5FA"/><path d="M16 2v16l4 10h8L16 2z" fill="#93C5FD"/></svg></span>
+      Aigenda · Warrington, UK · © 2026
+    </div>
+    <div class="footer-terms">
+      <a href="/privacy/">Privacy</a>
+      <span class="footer-dot">·</span>
+      <a href="/terms/">Terms</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){const c=document.getElementById('particles');const n=window.innerWidth<768?8:20;for(let i=0;i<n;i++){const p=document.createElement('div');p.className='particle';p.style.left=Math.random()*100+'%';p.style.top=Math.random()*100+'%';p.style.width=(Math.random()*1.5+0.5)+'px';p.style.height=p.style.width;p.style.animation=`floatUp ${Math.random()*20+15}s linear ${Math.random()*10}s infinite`;c.appendChild(p);}})();
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>80);},{passive:true});
+(function(){var nav=document.getElementById("nav"),lastY=0,ticking=false;window.addEventListener("scroll",function(){if(!ticking){requestAnimationFrame(function(){var y=window.scrollY;if(y>80&&y>lastY){nav.classList.add("nav-hidden")}else{nav.classList.remove("nav-hidden")}lastY=y;ticking=false;});ticking=true;}},{passive:true});})();
+(function(){var tog=document.querySelector(".nav-toggle");if(!tog)return;var ov=document.createElement("div");ov.className="nav-mobile-overlay";ov.innerHTML='<button class="mobile-close" aria-label="Close menu">✕</button><a href="/">Home</a><a href="/services/">Services</a><a href="/about/">About</a><a href="/blog/">Blog</a><a href="/contact/">Contact</a>';document.body.appendChild(ov);tog.addEventListener("click",function(){ov.classList.add("open")});ov.querySelector(".mobile-close").addEventListener("click",function(){ov.classList.remove("open")});ov.querySelectorAll("a").forEach(function(a){a.addEventListener("click",function(){ov.classList.remove("open")})});})();
+</script>
+</body>
+</html>

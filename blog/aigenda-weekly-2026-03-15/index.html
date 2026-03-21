@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Aigenda Weekly: The One Where Anthropic Snitches on Itself | Aigenda Blog</title>
+<meta name="description" content="Anthropic proves AI makes you dumber, Microsoft and Anthropic team up for Copilot Cowork, Lightpanda rewrites the browser, and more from a busy week in AI.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital,wght@0,400;1,400&family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0A0A0B;--text:#F5F5F7;--text2:#A1A1A6;--text3:#6E6E73;--blue1:#3B82F6;--blue2:#60A5FA;--blue3:#93C5FD;--serif:'DM Serif Display',Georgia,serif;--sans:'Inter',system-ui,sans-serif;--max:1200px}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden;position:relative}
+body::before{content:'';position:fixed;inset:0;z-index:-2;background:
+  radial-gradient(ellipse 80% 60% at 20% 10%, rgba(15,23,42,.9) 0%, transparent 60%),
+  radial-gradient(ellipse 70% 50% at 80% 20%, rgba(17,24,50,.7) 0%, transparent 55%),
+  radial-gradient(ellipse 60% 70% at 10% 60%, rgba(12,20,45,.6) 0%, transparent 50%),
+  radial-gradient(ellipse 90% 50% at 70% 80%, rgba(20,15,40,.5) 0%, transparent 55%),
+  radial-gradient(ellipse 50% 40% at 50% 40%, rgba(10,30,55,.4) 0%, transparent 50%),
+  radial-gradient(ellipse 80% 60% at 90% 50%, rgba(18,12,35,.3) 0%, transparent 50%),
+  linear-gradient(180deg, #080B15 0%, #0A0A0B 40%, #0B0A10 70%, #080B15 100%);pointer-events:none}
+body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.035;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");background-size:256px 256px}
+a{color:inherit;text-decoration:none}
+.gradient-text{background:linear-gradient(135deg,var(--blue1),var(--blue2),var(--blue3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.bokeh-layer{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.bokeh{position:absolute;border-radius:50%;pointer-events:none}
+@keyframes bokehDrift1{0%,100%{transform:translate(0,0)}25%{transform:translate(15px,-10px)}50%{transform:translate(-8px,20px)}75%{transform:translate(20px,8px)}}
+@keyframes bokehDrift2{0%,100%{transform:translate(0,0)}25%{transform:translate(-12px,15px)}50%{transform:translate(18px,-8px)}75%{transform:translate(-5px,-18px)}}
+@keyframes bokehDrift3{0%,100%{transform:translate(0,0)}33%{transform:translate(10px,15px)}66%{transform:translate(-15px,-10px)}}
+.neural-bg{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.neural-bg svg{width:100%;height:100%}
+@keyframes nodePulse1{0%,100%{opacity:.08}50%{opacity:.15}}
+@keyframes nodePulse2{0%,100%{opacity:.10}50%{opacity:.18}}
+@keyframes dataFlow1{0%{offset-distance:0%}100%{offset-distance:100%}}
+.neural-node{fill:#60A5FA;opacity:.35}
+.neural-line{stroke:rgba(96,165,250,.18);stroke-width:.5;fill:none}
+.neural-node.pulse1{animation:nodePulse1 3s ease-in-out infinite}
+.neural-node.pulse2{animation:nodePulse2 4s ease-in-out 1s infinite}
+.data-dot{fill:#93C5FD;opacity:.5}
+.particles{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.particle{position:absolute;width:2px;height:2px;background:var(--text);border-radius:50%;opacity:.06}
+@keyframes floatUp{0%{transform:translateY(0) translateX(0);opacity:.06}50%{opacity:.07}100%{transform:translateY(-100vh) translateX(30px);opacity:0}}
+.orb{position:fixed;border-radius:50%;pointer-events:none;z-index:0;filter:blur(80px)}
+.orb-1{width:500px;height:500px;background:radial-gradient(circle,rgba(59,130,246,.04),transparent 70%);top:10%;left:-10%}
+.orb-2{width:400px;height:400px;background:radial-gradient(circle,rgba(96,165,250,.03),transparent 70%);top:50%;right:-8%}
+.deco-lines{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.deco-line{position:absolute;background:linear-gradient(90deg,transparent,rgba(245,245,247,.04),transparent);height:0.5px}
+.deco-line-v{position:absolute;background:linear-gradient(180deg,transparent,rgba(245,245,247,.03),transparent);width:0.5px}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:24px 40px;display:flex;justify-content:space-between;align-items:center;transition:background .4s,transform .3s ease}
+nav.scrolled{background:rgba(10,10,11,.85);backdrop-filter:blur(12px)}
+nav.nav-hidden{transform:translateY(-100%)}
+nav .nav-logo{position:absolute;left:50%;transform:translateX(-50%)}
+.nav-cta{opacity:0;transform:translateY(-8px);transition:opacity .4s,transform .4s;font-size:14px;font-weight:500;letter-spacing:.02em;color:var(--text2)}
+.nav-cta:hover{color:var(--text)}
+nav.scrolled .nav-cta{opacity:1;transform:translateY(0)}
+.nav-toggle{display:block;background:none;border:none;color:var(--text);font-size:24px;cursor:pointer;padding:8px}
+.nav-mobile-overlay{display:none;position:fixed;inset:0;z-index:99;background:rgba(10,10,11,.95);backdrop-filter:blur(16px);flex-direction:column;align-items:center;justify-content:center;gap:32px}
+.nav-mobile-overlay.open{display:flex}
+.nav-mobile-overlay a{font-size:24px;font-weight:500;color:var(--text);letter-spacing:.02em;transition:color .3s}
+.nav-mobile-overlay a:hover{color:var(--blue2)}
+.nav-mobile-overlay .mobile-close{position:absolute;top:24px;right:24px;background:none;border:none;color:var(--text);font-size:28px;cursor:pointer;padding:8px}
+@media(max-width:767px){.nav-cta{display:none}}
+
+.article-wrapper{position:relative;z-index:2;max-width:720px;margin:0 auto;padding:160px 40px 80px}
+.back-link{display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--text3);margin-bottom:48px;transition:color .3s}
+.back-link:hover{color:var(--text2)}
+.article-meta{margin-bottom:32px}
+.article-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.article-tag{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--blue2);padding:4px 12px;border-radius:20px;border:1px solid rgba(96,165,250,.2);background:rgba(96,165,250,.06)}
+.article-title{font-family:var(--serif);font-size:clamp(28px,5vw,44px);line-height:1.15;margin-bottom:16px}
+.article-info{font-size:14px;color:var(--text3);display:flex;gap:16px;flex-wrap:wrap}
+.article-body{margin-top:48px}
+.article-body p{font-size:17px;color:var(--text2);line-height:1.8;margin-bottom:24px}
+.article-body h2{font-family:var(--serif);font-size:clamp(22px,3.5vw,28px);line-height:1.25;margin:56px 0 20px;color:var(--text)}
+.article-body h3{font-family:var(--serif);font-size:clamp(20px,2.5vw,24px);line-height:1.3;margin:40px 0 16px;color:var(--text)}
+.article-body ul,.article-body ol{margin:0 0 24px 24px;color:var(--text2);font-size:17px;line-height:1.8}
+.article-body li{margin-bottom:8px}
+.article-body li strong{color:var(--text);font-weight:500}
+.article-body strong{color:var(--text);font-weight:500}
+.article-body em{font-style:italic}
+.article-body hr{border:none;height:1px;background:linear-gradient(90deg,transparent,rgba(245,245,247,.08),transparent);margin:48px 0}
+.article-body a{color:var(--blue2);text-decoration:underline;text-underline-offset:2px;transition:color .3s}
+.article-body a:hover{color:var(--blue3)}
+.article-body .source-link{font-size:14px;color:var(--text3);margin-top:-16px;margin-bottom:24px}
+.article-body .source-link a{font-size:14px;color:var(--text3)}
+
+.article-bottom{margin-top:64px;padding-top:48px;border-top:1px solid rgba(245,245,247,.06)}
+.article-bottom-cta{text-align:center}
+.article-bottom-cta p{font-size:16px;color:var(--text2);margin-bottom:20px}
+.cta-btn{display:inline-block;padding:14px 36px;border-radius:60px;background:linear-gradient(135deg,var(--blue1),var(--blue2),var(--blue3));color:#0A0A0B;font-family:var(--sans);font-weight:600;font-size:16px;transition:transform .3s,box-shadow .3s}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(59,130,246,.3)}
+.follow-link{display:block;margin-top:20px;font-size:15px;color:var(--text3);transition:color .3s}
+.follow-link:hover{color:var(--text2)}
+
+footer{padding:80px 40px 40px;position:relative;z-index:2}
+.footer-inner{display:flex;flex-direction:column;align-items:center;gap:16px}
+.footer-nav,.footer-connect,.footer-legal,.footer-terms{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center}
+.footer-nav a,.footer-connect a,.footer-terms a{font-size:14px;color:var(--text3);letter-spacing:.02em;transition:color .3s}
+.footer-nav a:hover,.footer-connect a:hover,.footer-terms a:hover{color:var(--text2)}
+.footer-dot{color:var(--text3);font-size:14px;opacity:.5}
+.footer-legal{font-size:14px;color:var(--text3);letter-spacing:.02em;margin-top:8px}
+.footer-terms{margin-top:4px}
+.footer-terms a{font-size:12px;opacity:.6}
+.footer-terms a:hover{opacity:1}
+.prism-icon{display:inline-block;vertical-align:middle;flex-shrink:0}
+
+@media(max-width:767px){
+  nav{padding:14px 20px}
+  .article-wrapper{padding:100px 20px 60px}
+  .orb{display:none}
+  .neural-bg{opacity:.3}.bokeh-layer{opacity:.25}.bokeh:nth-child(n+4){display:none}
+  .particles,.deco-lines{opacity:.4}
+  footer{padding:60px 24px 32px}.footer-inner{gap:12px}
+}
+@media(prefers-reduced-motion:reduce){.particle{animation:none!important}.neural-node,.data-dot{animation:none!important}.bokeh{animation:none!important}}
+</style>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<meta property="og:title" content="The Aigenda Weekly: The One Where Anthropic Snitches on Itself">
+<meta property="og:description" content="Anthropic proves AI makes you dumber, Microsoft and Anthropic team up for Copilot Cowork, Lightpanda rewrites the browser, and more from a busy week in AI.">
+<meta property="og:url" content="https://aigenda.co.uk/posts/aigenda-weekly-2026-03-15/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Aigenda">
+<meta property="og:image" content="https://aigenda.co.uk/og-default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@theaigenda">
+<meta name="twitter:title" content="The Aigenda Weekly: The One Where Anthropic Snitches on Itself">
+<meta name="twitter:description" content="Anthropic proves AI makes you dumber, Microsoft and Anthropic team up for Copilot Cowork, Lightpanda rewrites the browser, and more from a busy week in AI.">
+<meta name="twitter:image" content="https://aigenda.co.uk/og-default.png">
+</head>
+<body>
+
+<div class="bokeh-layer">
+  <div class="bokeh" style="width:350px;height:350px;top:5%;left:8%;background:radial-gradient(circle,rgba(59,130,246,.10),rgba(59,130,246,.04) 40%,transparent 70%);animation:bokehDrift1 20s ease-in-out infinite"></div>
+  <div class="bokeh" style="width:250px;height:250px;top:20%;right:12%;background:radial-gradient(circle,rgba(96,165,250,.08),transparent 60%);animation:bokehDrift2 18s ease-in-out infinite"></div>
+  <div class="bokeh" style="width:300px;height:300px;top:50%;left:15%;background:radial-gradient(circle,rgba(147,197,253,.06),transparent 60%);animation:bokehDrift3 22s ease-in-out 3s infinite"></div>
+</div>
+
+<div class="neural-bg">
+<svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+  <line class="neural-line" x1="120" y1="180" x2="340" y2="290"/>
+  <line class="neural-line" x1="340" y1="290" x2="580" y2="150"/>
+  <line class="neural-line" x1="580" y1="150" x2="820" y2="380"/>
+  <line class="neural-line" x1="820" y1="380" x2="1050" y2="220"/>
+  <circle class="neural-node pulse1" cx="120" cy="180" r="4" opacity=".08"/>
+  <circle class="neural-node pulse2" cx="580" cy="150" r="5" opacity=".07"/>
+  <circle class="neural-node" cx="1050" cy="220" r="4" opacity=".07"/>
+  <circle class="data-dot" r="2" style="offset-path:path('M120,180 L340,290 L580,150 L820,380');animation:dataFlow1 15s linear infinite"/>
+</svg>
+</div>
+
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="particles" id="particles"></div>
+<div class="deco-lines">
+  <div class="deco-line" style="width:40%;top:25%;left:5%;transform:rotate(2deg)"></div>
+  <div class="deco-line-v" style="height:30%;top:10%;left:20%"></div>
+</div>
+
+<nav id="nav">
+  <button class="nav-toggle" aria-label="Menu">☰</button>
+  <a href="/" class="nav-logo" aria-label="Aigenda home">
+    <svg viewBox="0 0 32 32" width="32" height="32"><path d="M16 2L4 28h8l4-10V2z" fill="#60A5FA"/><path d="M16 2v16l4 10h8L16 2z" fill="#93C5FD"/></svg>
+  </a>
+  <a href="/services/" class="nav-cta">See how it works →</a>
+</nav>
+
+<article class="article-wrapper">
+  <a href="/blog/" class="back-link">← Back to blog</a>
+
+  <div class="article-meta">
+    <div class="article-tags">
+      <span class="article-tag">Newsletter</span>
+      <span class="article-tag">Weekly</span>
+      <span class="article-tag">AI News</span>
+    </div>
+    <h1 class="article-title">The Aigenda Weekly: The One Where Anthropic Snitches on Itself</h1>
+    <div class="article-info">
+      <span>15 March 2026</span>
+      <span>·</span>
+      <span>6 min read</span>
+    </div>
+  </div>
+
+  <div class="article-body">
+    <p>Another week, another avalanche of AI news that makes you question whether you're keeping up or falling behind. Spoiler: if you're reading this, you're doing better than most. Let's cut through the noise.</p>
+
+    <hr>
+
+    <h2>1. Anthropic Publishes Study Showing AI Makes You Worse at Learning</h2>
+    <p>In what might be the most honest corporate move of the year, Anthropic — the company that <em>makes</em> Claude — published research showing that developers who used AI assistance while learning a new programming library performed significantly worse when tested without it. The control group who struggled through it the old-fashioned way retained far more.</p>
+    <p><strong>Why this matters:</strong> This is the AI equivalent of a cigarette company funding lung cancer research. Respect to Anthropic for publishing it, but more importantly — it validates what a lot of us suspected. AI is a phenomenal productivity tool for things you <em>already know</em>. For things you're <em>learning</em>, it might be a crutch that atrophies the muscle. The Aigenda take: use AI to accelerate your strengths, not to skip the reps on your weaknesses.</p>
+
+    <hr>
+
+    <h2>2. Microsoft x Anthropic Launch "Copilot Cowork" — Your AI Office Worker</h2>
+    <p>Microsoft and Anthropic have partnered on Copilot Cowork, an AI system that takes a desired outcome, breaks it into steps, pulls context from your emails, meetings, files and chats, then executes across Outlook, Teams, Excel, and PowerPoint. Essentially, an AI employee that lives inside your Microsoft 365.</p>
+    <p><strong>Why this matters:</strong> This isn't "AI-assisted" work — it's AI-<em>executed</em> work. You describe what you want done, it does it. For the millions of knowledge workers whose jobs are essentially "move information between apps and format it nicely," this is the starting gun. The interesting question isn't whether this works — it's how quickly the "I describe, AI delivers" workflow becomes the baseline expectation for every office job.</p>
+
+    <hr>
+
+    <h2>3. Lightpanda: The Open-Source Browser Built for AI Agents</h2>
+    <p>Someone built a headless browser from scratch — not a Chromium fork, a completely new browser written in Zig — specifically designed for AI agents, scraping, and automation. It runs 11x faster than Chrome and uses 9x less memory. It's called Lightpanda, and it's open source.</p>
+    <p><strong>Why this matters:</strong> If you're building AI agents that need to interact with the web (and increasingly, who isn't?), the browser has been a bottleneck. Chrome is designed for humans watching YouTube, not for thousands of AI agents running parallel web tasks. Lightpanda is infrastructure for the agentic future — boring but absolutely critical plumbing. This is the kind of open-source project that quietly becomes essential.</p>
+
+    <hr>
+
+    <h2>4. OpenAI Launches Sora 2 Video API</h2>
+    <p>OpenAI dropped new Video API capabilities powered by Sora 2: custom characters and objects, 16:9 and 9:16 exports, clips up to 20 seconds, video continuation, and batch generation. Video creation is now an API call away.</p>
+    <p><strong>Why this matters:</strong> Remember when AI-generated images went from "novelty" to "how half the internet's visuals get made" in about 18 months? That's about to happen with video. The API approach is the real story here — this isn't about creatives playing with a tool, it's about developers embedding video generation into products, workflows, and automation. The content creation landscape is about to get very, very noisy.</p>
+
+    <hr>
+
+    <h2>5. Anthropic's Labour Report: The Jobs Most at Risk Aren't the Ones You Think</h2>
+    <p>Anthropic released an AI labour impact report suggesting that the jobs most exposed to AI disruption over the next few years are exactly the ones people assumed were safe. The report has racked up thousands of shares and a fair amount of existential dread.</p>
+    <p><strong>Why this matters:</strong> Every "AI won't replace you, a person using AI will" platitude just got a reality check. The specifics matter here — if the "safe" jobs are now in the crosshairs, the calculus for career planning and business strategy shifts dramatically. Whether you're hiring, managing, or doing the work yourself, ignoring this report is a choice with consequences.</p>
+
+    <hr>
+
+    <h2>6. Ex-Anthropic Scientists Raise $1B for AI Scientific Discovery Startup</h2>
+    <p>A team of former Anthropic researchers is raising $175 million at a $1 billion valuation for Mirendil, a startup focused on using AI to accelerate scientific discovery. Sam Altman has also spoken about OpenAI's goal of building autonomous AI researchers by the end of the decade.</p>
+    <p><strong>Why this matters:</strong> The AI talent exodus from big labs into focused startups is accelerating. Mirendil's bet is that the real value of frontier AI isn't chatbots — it's using these models to make scientific breakthroughs that humans alone would take decades to achieve. If this works, the ROI isn't measured in productivity gains — it's measured in new drugs, materials, and energy solutions. The ambition here is genuinely staggering.</p>
+
+    <hr>
+
+    <h2>7. Perplexity Becomes a Full-Stack Agent Platform</h2>
+    <p>Perplexity announced that its API platform is now a full-stack, model-agnostic platform for building agents — replacing your model provider, search layer, and embeddings in one go. Built on the same infrastructure that powers Perplexity's search product.</p>
+    <p><strong>Why this matters:</strong> The "picks and shovels" play in the AI gold rush just got more interesting. Perplexity is positioning itself not as a search engine but as the platform layer that agent builders use. Model-agnostic is the key word — they're betting that which LLM you use matters less than the infrastructure around it. Smart positioning in a market where model commoditisation is accelerating fast.</p>
+
+    <hr>
+
+    <h2>8. Google DeepMind Opens "Platform 37" — Major London AI Hub</h2>
+    <p>Google DeepMind unveiled Platform 37, a massive new London office in King's Cross. Named to honour the area's transport heritage and AlphaGo's famous "Move 37," it signals DeepMind's continued commitment to London as a global AI research centre.</p>
+    <p><strong>Why this matters:</strong> In the ongoing debate about whether AI's centre of gravity will remain in San Francisco, DeepMind is making a very expensive argument for London. This isn't just an office — it's a talent magnet. For the UK AI ecosystem, having DeepMind doubling down on London is enormously significant. The brain drain narrative just got a counterpoint.</p>
+
+    <hr>
+
+    <p>That's your week in AI. Eight stories, zero fluff.</p>
+    <p>If this was useful, follow <a href="https://x.com/theaigenda" target="_blank" rel="noopener">@theaigenda</a> for the signal, not the noise. See you next week.</p>
+  </div>
+
+  <div class="article-bottom">
+    <div class="article-bottom-cta">
+      <p>Want the weekly delivered to your inbox?</p>
+      <a href="/blog/" class="cta-btn">← Back to all posts</a>
+      <a href="https://x.com/theaigenda" target="_blank" rel="noopener" class="follow-link">Follow @theaigenda for daily signal →</a>
+    </div>
+  </div>
+</article>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-nav">
+      <a href="/services/">Services</a>
+      <span class="footer-dot">·</span>
+      <a href="/about/">About</a>
+      <span class="footer-dot">·</span>
+      <a href="/blog/">Blog</a>
+      <span class="footer-dot">·</span>
+      <a href="/contact/">Contact</a>
+    </div>
+    <div class="footer-connect">
+      <a href="mailto:hello@aigenda.co.uk">hello@aigenda.co.uk</a>
+      <span class="footer-dot">·</span>
+      <a href="https://x.com/theaigenda" target="_blank" rel="noopener">@theaigenda</a>
+    </div>
+    <div class="footer-legal">
+      <span class="prism-icon"><svg viewBox="0 0 32 32" width="16" height="16"><path d="M16 2L4 28h8l4-10V2z" fill="#60A5FA"/><path d="M16 2v16l4 10h8L16 2z" fill="#93C5FD"/></svg></span>
+      Aigenda · Warrington, UK · © 2026
+    </div>
+    <div class="footer-terms">
+      <a href="/privacy/">Privacy</a>
+      <span class="footer-dot">·</span>
+      <a href="/terms/">Terms</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){const c=document.getElementById('particles');const n=window.innerWidth<768?8:20;for(let i=0;i<n;i++){const p=document.createElement('div');p.className='particle';p.style.left=Math.random()*100+'%';p.style.top=Math.random()*100+'%';p.style.width=(Math.random()*1.5+0.5)+'px';p.style.height=p.style.width;p.style.animation=`floatUp ${Math.random()*20+15}s linear ${Math.random()*10}s infinite`;c.appendChild(p);}})();
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>80);},{passive:true});
+(function(){var nav=document.getElementById("nav"),lastY=0,ticking=false;window.addEventListener("scroll",function(){if(!ticking){requestAnimationFrame(function(){var y=window.scrollY;if(y>80&&y>lastY){nav.classList.add("nav-hidden")}else{nav.classList.remove("nav-hidden")}lastY=y;ticking=false;});ticking=true;}},{passive:true});})();
+(function(){var tog=document.querySelector(".nav-toggle");if(!tog)return;var ov=document.createElement("div");ov.className="nav-mobile-overlay";ov.innerHTML='<button class="mobile-close" aria-label="Close menu">✕</button><a href="/">Home</a><a href="/services/">Services</a><a href="/about/">About</a><a href="/blog/">Blog</a><a href="/contact/">Contact</a>';document.body.appendChild(ov);tog.addEventListener("click",function(){ov.classList.add("open")});ov.querySelector(".mobile-close").addEventListener("click",function(){ov.classList.remove("open")});ov.querySelectorAll("a").forEach(function(a){a.addEventListener("click",function(){ov.classList.remove("open")})});})();
+</script>
+</body>
+</html>
