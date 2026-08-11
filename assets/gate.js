@@ -1,5 +1,5 @@
 (function(){
-  var PASS = "aigenda2026";
+  var PASS = "fjqRqGvtukLcpG9T";
   var KEY = "aigenda_gate_ok";
   try {
     if (sessionStorage.getItem(KEY) === "1") return;
